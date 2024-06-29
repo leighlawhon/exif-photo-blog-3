@@ -28,10 +28,11 @@ export default function SiteGrid({
         'max-w-7xl',
       )}
     >
+     
       <div className={clsx(
         'col-span-1 md:col-span-9',
         sideFirstOnMobile && 'order-2 md:order-none',
-      )}>
+        )}>
         {contentMain}
       </div>
       {contentSide &&

@@ -12,6 +12,7 @@ export const PATH_ADMIN               = '/admin';
 export const PATH_API                 = '/api';
 export const PATH_SIGN_IN             = '/sign-in';
 export const PATH_OG                  = '/og';
+export const PATH_READER = '/reader';
 
 // Path prefixes
 export const PREFIX_PHOTO             = '/p';
@@ -61,6 +62,7 @@ export const PATHS_TO_CACHE = [
   PATH_ROOT,
   PATH_GRID,
   PATH_OG,
+  PATH_READER,
   PATH_PHOTO_DYNAMIC,
   PATH_TAG_DYNAMIC,
   PATH_CAMERA_DYNAMIC,

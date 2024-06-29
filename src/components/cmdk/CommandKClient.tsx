@@ -255,7 +255,10 @@ export default function CommandKClient({
     }, {
       label: 'Grid',
       path:'/grid',
-    }]),
+      }, {
+        label: 'Reader',
+        path: '/reader',
+      }]),
   };
 
   const adminSection: CommandKSection = {
