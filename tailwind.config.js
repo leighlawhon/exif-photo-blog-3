@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: 'class',
   theme: {
@@ -22,7 +22,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'mono': ['var(--font-ibm-plex-mono)', ...defaultTheme.fontFamily.mono],
+        'mono': ['var(--font-open-sans)', ...defaultTheme.fontFamily.mono],
       },
       animation: {
         'rotate-pulse':
@@ -40,8 +40,5 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/container-queries'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/container-queries')],
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { Photo, altTextForPhoto, doesPhotoNeedBlurCompatibility } from '../photo';
+import { Photo, altTextForPhoto, doesPhotoNeedBlurCompatibility } from '@/photo';
 import ImageMedium from '@/components/image/ImageMedium';
 import { Camera } from '@/camera';
 import { FilmSimulation } from '@/simulation';
@@ -10,6 +10,7 @@ import useOnVisible from '@/utility/useOnVisible';
 
 export default function PhotoMedium({
     photo,
+    editMode,
     tag,
     camera,
     simulation,
@@ -20,6 +21,7 @@ export default function PhotoMedium({
     className,
     onVisible,
 }: {
+        editMode: boolean
     photo: Photo
     tag?: string
     camera?: Camera
@@ -37,15 +39,12 @@ export default function PhotoMedium({
 
     return (
 
-        <ImageMedium
+        <img
             src={photo.url}
-            aspectRatio={photo.aspectRatio}
-            blurDataURL={photo.blurData}
-            blurCompatibilityMode={doesPhotoNeedBlurCompatibility(photo)}
-            className="flex object-cover w-full h-full"
-            imgClassName="object-cover w-full h-full"
+            key={photo.id}
             alt={altTextForPhoto(photo)}
-            priority={priority}
+            className={photo.tags.includes('scene') ? 'scene' : 'character'}
         />
+
     );
 };

@@ -20,11 +20,13 @@ import SwrConfigClient from '../state/SwrConfigClient';
 
 import '../site/globals.css';
 import '../site/sonner.css';
+import '../site/custom.css';
 
-const ibmPlexMono = IBM_Plex_Mono({
+
+const opensans = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
-  variable: '--font-ibm-plex-mono',
+  variable: '--font-open-sans',
 });
 
 export const metadata: Metadata = {
@@ -75,7 +77,7 @@ export default function RootLayout({
       // Suppress hydration errors due to next-themes behavior
       suppressHydrationWarning
     >
-      <body className={ibmPlexMono.variable}>
+      <body className={opensans.variable}>
         <AppStateProvider>
           <SwrConfigClient>
             <ThemeProvider attribute="class">

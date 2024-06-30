@@ -2,21 +2,21 @@
 
 import SiteGrid from '@/components/SiteGrid';
 import { Photo } from '../../photo';
-import PanelLayout from '../../photo/PhotoGrid';
+import PanelLayout from './PanelLayout';
 import { clsx } from 'clsx/lite';
 import { useCallback, useState } from 'react';
 
 export default function SceneContainer({
     cacheKey,
     photos,
-    count,
+    editMode,
     tags,
     animateOnFirstLoadOnly,
     header,
 }: {
     cacheKey: string
     photos: Photo[]
-    count: number
+        editMode: boolean
     tags?: string
     animateOnFirstLoadOnly?: boolean
     header?: JSX.Element
@@ -37,13 +37,15 @@ export default function SceneContainer({
                 header && 'space-y-8 mt-4',
             )}>
                 <div id="scene-container">
-
-                    <div className="space-y-0.5 sm:space-y-1" id="photo-grid">
+                    <p>{tags}</p>
+                    <div className="space-y-0.5 sm:space-y-1" >
+                        {tags}
                         <PanelLayout {...{
                             photos,
                             tags,
                             animateOnFirstLoadOnly,
                             onAnimationComplete,
+                            editMode,
                         }} />
                     </div>
                 </div>

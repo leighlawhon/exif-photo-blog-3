@@ -1,7 +1,7 @@
 export async function CopyExif(
   src: Blob,
   dest: Blob,
-  type = 'image/jpeg',
+  type = 'image/png',
 ) {
   const exif = await retrieveExif(src);
   return new Blob([dest.slice(0, 2), exif, dest.slice(2)], { type });

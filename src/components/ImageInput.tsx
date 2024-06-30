@@ -205,7 +205,7 @@ export default function ImageInput({
                           });
                         }
                       },
-                      'image/jpeg',
+                      'image/png',
                       quality,
                     );
                   } else {

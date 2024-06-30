@@ -6,7 +6,7 @@ import {
 import FilmSimulationImageResponse from
   '@/image-response/FilmSimulationImageResponse';
 import { FilmSimulation } from '@/simulation';
-import { getIBMPlexMonoMedium } from '@/site/font';
+import { getOpenSansMedium } from '@/site/font';
 import { ImageResponse } from 'next/og';
 import { getImageResponseCacheControlHeaders } from '@/image-response/cache';
 
@@ -22,7 +22,7 @@ export async function GET(
     headers,
   ] = await Promise.all([
     getPhotosCached({ limit: MAX_PHOTOS_TO_SHOW_PER_TAG, simulation }),
-    getIBMPlexMonoMedium(),
+    getOpenSansMedium(),
     getImageResponseCacheControlHeaders(),
   ]);
 

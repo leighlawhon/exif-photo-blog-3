@@ -1,5 +1,5 @@
-import { Photo } from '../photo';
-import PhotoMedium from '../photo/PhotoMedium';
+import { Photo } from '@/photo';
+import Panel from './Panel';
 import { clsx } from 'clsx/lite';
 import AnimateItems from '@/components/AnimateItems';
 import { Camera } from '@/camera';
@@ -7,6 +7,7 @@ import { FilmSimulation } from '@/simulation';
 import { GRID_ASPECT_RATIO, HIGH_DENSITY_GRID } from '@/site/config';
 
 export default function PanelLayout({
+    editMode,
     photos,
     selectedPhoto,
     tag,
@@ -19,6 +20,7 @@ export default function PanelLayout({
     onLastPhotoVisible,
     onAnimationComplete,
 }: {
+        editMode: boolean
     photos: Photo[]
     selectedPhoto?: Photo
     tag?: string
@@ -32,30 +34,28 @@ export default function PanelLayout({
     onAnimationComplete?: () => void
 }) {
     return (
-        <div>
+        <div className="panel"> 
             {photos.map((photo, index) =>
-                <div
-                    key={photo.id}
 
-                >
-                    <PhotoMedium
-                        className="flex w-full h-full"
-                        {...{
-                            photo,
-                            tag,
-                            camera,
-                            simulation,
-                            focal,
-                            selected: photo.id === selectedPhoto?.id,
-                            priority: photoPriority,
-                            onVisible: index === photos.length - 1
-                                ? onLastPhotoVisible
-                                : undefined,
-                        }}
-                    />
-                </div>).concat(additionalTile ?? [])}
-            itemKeys={photos.map(photo => photo.id)
-                .concat(additionalTile ? ['more'] : [])}
+                <Panel
+                    {...{
+                        editMode,
+                        photo,
+                        tag,
+                        camera,
+                        simulation,
+                        focal,
+                        selected: photo.id === selectedPhoto?.id,
+                        priority: photoPriority,
+                        onVisible: index === photos.length - 1
+                            ? onLastPhotoVisible
+                            : undefined,
+                    }}
+                    className="flex w-full h-full"
+                    key={photo.id}
+                />
+            ).concat(additionalTile ?? [])}
+
         </div>
     );
 };
