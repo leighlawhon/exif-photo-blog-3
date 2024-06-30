@@ -102,3 +102,22 @@ input:checked+.slider:before {
     stroke: white;
     stroke-width: 3;
 }
+.toggle-button-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.toggle-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.toggle-button.active {
+    background-color: #2196F3;
+    color: white;
+    border-color: #2196F3;
+}

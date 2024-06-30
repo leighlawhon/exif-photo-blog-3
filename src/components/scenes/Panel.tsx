@@ -40,6 +40,7 @@ export default function PhotoMedium({
 
     return (
         <div>
+            
             <Draggable>
                 <img
                     src={photo.url}
