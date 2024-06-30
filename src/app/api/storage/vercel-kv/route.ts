@@ -12,6 +12,7 @@ export async function GET() {
         url: process.env.PRODUCTS_REST_API_URL,
         token: process.env.PRODUCTS_REST_API_TOKEN,
     });
+    console.log('urk', process.env.USERS_REST_API_UR);
 
     const product = await products.hgetall('product:shirt');
     return Response.json(

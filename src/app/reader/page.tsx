@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const cacheKey = "page-" + PATH_READER;
 
-export default async function ReaderPage({ small }: { small?: boolean }) {
+export default async function ReaderPage() {
     const [
         photos,
         photosCount,

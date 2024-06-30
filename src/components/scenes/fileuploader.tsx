@@ -1,27 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { createClient } from '@vercel/kv';
-import { KV_REST_API_TOKEN, KV_REST_API_URL } from '@/site/config';
 
-// const users = createClient({
-//     url: process.env.USERS_REST_API_URL,
-//     token: process.env.USERS_REST_API_TOKEN,
-// });
 
-// const kvRestApiUrl = process.env.KV_REST_API_URL || ''; // Set a default value if the environment variable is undefined
-// fetch(`${kvRestApiUrl}`, {
-//     headers: {
-//         Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}`,
-//     },
-// })
-//     .then((response) => response)
-//     .then((data) => console.log(data));
-
-// const { KV_REST_API_URL, KV_REST_API_TOKEN } = process.env;
-console.log(KV_REST_API_URL)
-
-fetch(`${KV_REST_API_URL}?_token=${KV_REST_API_TOKEN}`)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
 
 interface FileUploaderAndReaderProps {
     editMode: boolean;
