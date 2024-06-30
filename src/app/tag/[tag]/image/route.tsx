@@ -4,7 +4,7 @@ import {
   MAX_PHOTOS_TO_SHOW_PER_TAG,
 } from '@/image-response';
 import TagImageResponse from '@/image-response/TagImageResponse';
-import { getIBMPlexMonoMedium } from '@/site/font';
+import { getOpenSansMedium } from '@/site/font';
 import { ImageResponse } from 'next/og';
 import { getImageResponseCacheControlHeaders } from '@/image-response/cache';
 
@@ -20,7 +20,7 @@ export async function GET(
     headers,
   ] = await Promise.all([
     getPhotosCached({ limit: MAX_PHOTOS_TO_SHOW_PER_TAG, tag }),
-    getIBMPlexMonoMedium(),
+    getOpenSansMedium(),
     getImageResponseCacheControlHeaders(),
   ]);
 

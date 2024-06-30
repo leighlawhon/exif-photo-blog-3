@@ -1,7 +1,7 @@
 import { getPhotoCached } from '@/photo/cache';
 import { IMAGE_OG_DIMENSION } from '@/image-response';
 import PhotoImageResponse from '@/image-response/PhotoImageResponse';
-import { getIBMPlexMonoMedium } from '@/site/font';
+import { getOpenSansMedium } from '@/site/font';
 import { ImageResponse } from 'next/og';
 import { getImageResponseCacheControlHeaders } from '@/image-response/cache';
 import { IS_PRODUCTION, STATICALLY_OPTIMIZED_OG_IMAGES } from '@/site/config';
@@ -29,7 +29,7 @@ export async function GET(
     headers,
   ] = await Promise.all([
     getPhotoCached(context.params.photoId),
-    getIBMPlexMonoMedium(),
+    getOpenSansMedium(),
     getImageResponseCacheControlHeaders(),
   ]);
   

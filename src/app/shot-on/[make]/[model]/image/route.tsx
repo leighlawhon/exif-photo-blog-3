@@ -5,7 +5,7 @@ import {
   MAX_PHOTOS_TO_SHOW_PER_TAG,
 } from '@/image-response';
 import CameraImageResponse from '@/image-response/CameraImageResponse';
-import { getIBMPlexMonoMedium } from '@/site/font';
+import { getOpenSansMedium } from '@/site/font';
 import { ImageResponse } from 'next/og';
 import { getImageResponseCacheControlHeaders } from '@/image-response/cache';
 
@@ -24,7 +24,7 @@ export async function GET(
       limit: MAX_PHOTOS_TO_SHOW_PER_TAG,
       camera: camera,
     }),
-    getIBMPlexMonoMedium(),
+    getOpenSansMedium(),
     getImageResponseCacheControlHeaders(),
   ]);
 

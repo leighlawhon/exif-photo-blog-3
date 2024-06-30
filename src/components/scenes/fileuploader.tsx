@@ -1,4 +1,27 @@
 import React, { useState, useEffect, Suspense } from 'react';
+import { createClient } from '@vercel/kv';
+import { KV_REST_API_TOKEN, KV_REST_API_URL } from '@/site/config';
+
+// const users = createClient({
+//     url: process.env.USERS_REST_API_URL,
+//     token: process.env.USERS_REST_API_TOKEN,
+// });
+
+// const kvRestApiUrl = process.env.KV_REST_API_URL || ''; // Set a default value if the environment variable is undefined
+// fetch(`${kvRestApiUrl}`, {
+//     headers: {
+//         Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}`,
+//     },
+// })
+//     .then((response) => response)
+//     .then((data) => console.log(data));
+
+// const { KV_REST_API_URL, KV_REST_API_TOKEN } = process.env;
+console.log(KV_REST_API_URL)
+
+fetch(`${KV_REST_API_URL}?_token=${KV_REST_API_TOKEN}`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 
 interface FileUploaderAndReaderProps {
     editMode: boolean;
@@ -21,24 +44,24 @@ const FileUploaderAndReader: React.FC<FileUploaderAndReaderProps> = ({ editMode 
     const [fileContent, setFileContent] = useState<string | ArrayBuffer | null>(null);
     const [storyChunks, setStoryChunks] = useState<string[]>([]);
 
-    // useEffect(() => {
-    //     // Example of a fetch call inside useEffect, replace URL and headers as needed
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch("https://evolved-walleye-37162.upstash.io/set/user_1_session/session_token_value", {
-    //                 headers: {
-    //                     Authorization: "Bearer ********"
-    //                 }
-    //             });
-    //             const data = await response.json();
-    //             console.log(data);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
+    useEffect(() => {
+    // Example of a fetch call inside useEffect, replace URL and headers as needed
+    // const fetchData = async () => {
+    //     try {
+    //         const response = await fetch("https://evolved-walleye-37162.upstash.io/set/user_1_session/session_token_value", {
+    //             headers: {
+    //                 Authorization: "Bearer ********"
+    //             }
+    //         });
+    //         const data = await response.json();
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // };
 
-    //     fetchData();
-    // }, []); // Empty dependency array means this runs once on component mount
+        // fetchData();
+    }, []); // Empty dependency array means this runs once on component mount
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -59,6 +82,7 @@ const FileUploaderAndReader: React.FC<FileUploaderAndReaderProps> = ({ editMode 
 
     const handleUpload = async () => {
         setFileContent(storyChunks.join('\n\n________________________\n\n'));
+
     // if (selectedFile) {
     //     const formData = new FormData();
     //     formData.append('file', selectedFile);
@@ -75,6 +99,7 @@ const FileUploaderAndReader: React.FC<FileUploaderAndReaderProps> = ({ editMode 
         //     }
         // }
     };
+
 
     return (
         <Suspense fallback={<div>Loading...</div>}>

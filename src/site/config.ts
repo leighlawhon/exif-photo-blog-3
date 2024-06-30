@@ -218,3 +218,9 @@ export const IS_SITE_READY =
   CONFIG_CHECKLIST_STATUS.hasAuthSecret &&
   CONFIG_CHECKLIST_STATUS.hasAdminUser;
   
+
+export const KV_REST_API_URL =
+  process.env.KV_REST_API_URL
+
+export const KV_REST_API_TOKEN =
+  process.env.KV_REST_API_TOKEN
