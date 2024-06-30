@@ -17,9 +17,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ children, isVisible, onTogg
 
     return (
         <div>
-            <button onClick={toggleVisibility}>
-                {isVisible ? 'Hide Elements' : 'Show Elements'}
-            </button>
+            <span>Edit Mode</span>
             <label className="toggle-switch">
                 <input type="checkbox" checked={toggleChecked} onChange={toggleVisibility} />
                 <span className="slider"></span>

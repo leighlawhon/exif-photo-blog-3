@@ -7,6 +7,7 @@ import { FilmSimulation } from '@/simulation';
 import { SHOULD_PREFETCH_ALL_LINKS } from '@/site/config';
 import { useRef } from 'react';
 import useOnVisible from '@/utility/useOnVisible';
+import Draggable from './Drag';
 
 export default function PhotoMedium({
     photo,
@@ -38,13 +39,17 @@ export default function PhotoMedium({
     useOnVisible(ref, onVisible);
 
     return (
+        <div>
+            <Draggable>
+                <img
+                    src={photo.url}
+                    key={photo.id}
+                    alt={altTextForPhoto(photo)}
+                    className={photo.tags.includes('scene') ? 'scene' : 'character'}
+                />
+            </Draggable>
 
-        <img
-            src={photo.url}
-            key={photo.id}
-            alt={altTextForPhoto(photo)}
-            className={photo.tags.includes('scene') ? 'scene' : 'character'}
-        />
+        </div>
 
     );
 };

@@ -91,3 +91,14 @@ input:focus+.slider {
 input:checked+.slider:before {
     transform: translateX(26px);
 }
+.move {
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    z-index: 4;
+}
+
+.move svg path {
+    stroke: white;
+    stroke-width: 3;
+}
