@@ -11,6 +11,7 @@ import Draggable from './Drag';
 
 export default function PhotoMedium({
     photo,
+    photoTitle,
     editMode,
     tag,
     camera,
@@ -22,35 +23,33 @@ export default function PhotoMedium({
     className,
     onVisible,
 }: {
+        photoTitle: string
+        photo: Photo
         editMode: boolean
-    photo: Photo
-    tag?: string
-    camera?: Camera
-    simulation?: FilmSimulation
-    focal?: number
-    selected?: boolean
-    priority?: boolean
-    prefetch?: boolean
-    className?: string
-    onVisible?: () => void
+        tag?: string
+        camera?: Camera
+        simulation?: FilmSimulation
+        focal?: number
+        selected?: boolean
+        priority?: boolean
+        prefetch?: boolean
+        className?: string
+        onVisible?: () => void
 }) {
     const ref = useRef<HTMLAnchorElement>(null);
 
     useOnVisible(ref, onVisible);
 
     return (
-        <div>
-            
+
             <Draggable>
                 <img
                     src={photo.url}
-                    key={photo.id}
+                key={photoTitle}
                     alt={altTextForPhoto(photo)}
                     className={photo.tags.includes('scene') ? 'scene' : 'character'}
                 />
             </Draggable>
-
-        </div>
 
     );
 };

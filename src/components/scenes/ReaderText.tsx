@@ -2,7 +2,8 @@
 
 import { ReactNode } from 'react';
 import { clsx } from 'clsx/lite';
-import FileUploaderAndReader from './fileuploader';
+import React from 'react';
+const FileUploaderAndReader = React.lazy(() => import('./fileuploader'));
 
 interface ReaderTextProps {
     editMode: boolean;

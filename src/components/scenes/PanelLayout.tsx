@@ -36,11 +36,11 @@ export default function PanelLayout({
     return (
         <div className="panel"> 
             {photos.map((photo, index) =>
-
                 <Panel
                     {...{
                         editMode,
                         photo,
+                        photoTitle: photo.title ?? '',
                         tag,
                         camera,
                         simulation,

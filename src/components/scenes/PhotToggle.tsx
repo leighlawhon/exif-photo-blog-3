@@ -1,9 +1,6 @@
+import { Photo } from '@/photo';
 import React, { useState } from 'react';
 
-interface Photo {
-    id: string;
-    tag?: string;
-}
 
 interface PhotoToggleProps {
     photos: Photo[];
@@ -32,7 +29,7 @@ const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
                     className={`toggle-button ${selected === photo.id ? 'active' : ''}`}
                     onClick={() => handleFilter(photo.id)}
                 >
-                    {photo.tag || 'Photo'}
+                    {photo.title || 'Photo'}
                 </button>
             ))}
         </div>

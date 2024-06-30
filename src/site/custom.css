@@ -93,14 +93,21 @@ input:checked+.slider:before {
 }
 .move {
     position: absolute;
-    right: 0;
+    top: 20px;
+        left: 200px;
     width: 3rem;
+    height: 3rem;
     z-index: 4;
 }
 
 .move svg path {
     stroke: white;
     stroke-width: 3;
+}
+.draggable_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 .toggle-button-bar {
     display: flex;
