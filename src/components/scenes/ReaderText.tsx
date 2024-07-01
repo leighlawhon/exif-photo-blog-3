@@ -2,8 +2,8 @@
 
 import { ReactNode } from 'react';
 import { clsx } from 'clsx/lite';
-import React from 'react';
-const FileUploaderAndReader = React.lazy(() => import('./fileuploader'));
+import FileUploaderAndReader from './textFileuploader';
+import JsonFileUploader from './JsonFileUploader';
 
 interface ReaderTextProps {
     editMode: boolean;
@@ -19,7 +19,7 @@ export default function ReaderText({ editMode }: ReaderTextProps) {
                 'border border-gray-200 dark:border-gray-800 rounded-md',
                 'divide-y divide-gray-200 dark:divide-gray-800',
             )}>
-                <FileUploaderAndReader editMode={editMode} />
+                <JsonFileUploader editMode={editMode} />
             </div>
         </div>
     );
