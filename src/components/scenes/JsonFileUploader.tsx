@@ -1,21 +1,11 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@vercel/kv';
-import { POST_BOOK } from '@/books';
 
 interface FileUploaderAndReaderProps {
     editMode: boolean;
 }
 
-const postBookToKV = async (book: any) => {
-    try {
-        await POST_BOOK(book);
-        alert('Book uploaded successfully!');
-    } catch (error) {
-        console.error('Error uploading book:', error);
-        alert('Failed to upload book.');
-    }
-};
 
 const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) => {
     const [file, setFile] = useState<File | null>(null);
@@ -30,20 +20,7 @@ const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) =>
     };
 
     const uploadJsonToKV = async (jsonObject: object) => {
-        console.timeLog('jsonObject', jsonObject)
-        postBookToKV(jsonObject)
-        // const kv = createClient({
-        //     url: process.env.REACT_APP_KV_REST_API_URL as string,
-        //     token: process.env.REACT_APP_KV_REST_API_TOKEN as string,
-        // });
-
-        // try {
-        //     await kv.set('jsonFileKey', jsonObject);
-        //     setUploadStatus('Upload successful');
-        // } catch (error) {
-        //     console.error('Error uploading JSON to KV:', error);
-        //     setUploadStatus('Upload failed');
-        // }
+        console.log('jsonObject', jsonObject)
     };
 
     const handleUpload = async () => {
