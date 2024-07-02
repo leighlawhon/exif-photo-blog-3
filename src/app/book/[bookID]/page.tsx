@@ -13,7 +13,7 @@ export const dynamic = 'force-static';
 
 const getPhotosCached = cache(() => getPhotos({
     limit: INFINITE_SCROLL_GRID_PHOTO_INITIAL,
-    tag: "the-great-gatsby"
+    // tag: "sitting"
 }));
 
 

@@ -53,7 +53,6 @@ const BookContainer: React.FC<BookContainerProps> = ({ photos }) => {
             {selectedBook?.title}
             <BookEditor toggleEditMode={editMode} toggleEditFunc={toggleEditMode} photos={photos} book={selectedBook} />
 
-
         </div>
     );
     } else {

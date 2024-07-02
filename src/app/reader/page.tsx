@@ -7,6 +7,7 @@ import { Metadata } from 'next/types';
 import { getPhotos } from '@/photo/db/query';
 import { cache } from 'react';
 import EditContainer from '@/components/scenes/EditContainer';
+import BookSelector from '@/components/scenes/BookSelector';
 
 export const dynamic = 'force-static';
 
@@ -34,7 +35,7 @@ export default async function ReaderPage() {
 
     return (
 
-        <EditContainer photos={photos} />
+        <BookSelector editMode={false} />
 
     );
 }
