@@ -13,7 +13,7 @@ export const dynamic = 'force-static';
 
 const getPhotosCached = cache(() => getPhotos({
     limit: INFINITE_SCROLL_GRID_PHOTO_INITIAL,
-    // tag: "sitting"
+    tag: "the-great-gatsby"
 }));
 
 
@@ -36,7 +36,6 @@ export default async function BookPage() {
     return (
         <div>
             <BookContainer photos={photos} />
-            <EditContainer photos={photos} />
         </div>
 
     );
