@@ -46,6 +46,25 @@ export async function PUT(
       status: HttpStatus.BAD_REQUEST,
     });
   }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  let bookData = null;
+
+  try {
+    bookData = await request.formData();
+  } catch (e) {
+    // add error response here
+    return Response.json({
+      status: HttpStatus.BAD_REQUEST,
+      message: 'Invalid request body.',
+    }, {
+      status: HttpStatus.BAD_REQUEST,
+    });
+  }
 
   bookData.set('_id', params.id);
 

@@ -1,4 +1,4 @@
-import { PATH_READER } from '@/site/paths';
+import { PATH_BOOK_DYNAMIC, PATH_READER } from '@/site/paths';
 import {
     INFINITE_SCROLL_GRID_PHOTO_INITIAL,
     generateOgImageMetaForPhotos,
@@ -7,6 +7,7 @@ import { Metadata } from 'next/types';
 import { getPhotos } from '@/photo/db/query';
 import { cache } from 'react';
 import EditContainer from '@/components/scenes/EditContainer';
+import BookContainer from '@/components/scenes/BookContainer';
 
 export const dynamic = 'force-static';
 
@@ -22,9 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
     return generateOgImageMetaForPhotos(photos);
 }
 
-const cacheKey = "page-" + PATH_READER;
+const cacheKey = "page-" + PATH_BOOK_DYNAMIC;
 
-export default async function ReaderPage() {
+export default async function BookPage() {
     const [
         photos,
     ] = await Promise.all([
@@ -33,8 +34,10 @@ export default async function ReaderPage() {
     ]);
 
     return (
-
-        <EditContainer photos={photos} />
+        <div>
+            <BookContainer photos={photos} />
+            <EditContainer photos={photos} />
+        </div>
 
     );
 }

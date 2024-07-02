@@ -113,3 +113,44 @@ export async function updateBook(bookData: FormData) {
 
   return { _id: id };
 }
+
+export async function deleteBook(bookData: FormData) {
+  const id = bookData.get('_id');
+  if (!id) {
+    return {
+      status: HttpStatus.BAD_REQUEST,
+      message: 'The _id field is required.',
+    } as ErrorResponse;
+  }
+
+  const existingBook = await getBook(id as Book['_id']);
+  if (!existingBook) {
+    return {
+      status: HttpStatus.NOT_FOUND,
+      message: 'Book not found.',
+    } as ErrorResponse;
+  }
+
+  const payload = bookData.get('book');
+  if (!bookData || !isJsonFile(payload)) {
+    return {
+      status: HttpStatus.BAD_REQUEST,
+      message: 'The book field is required, and must be a JSON file.',
+    } as ErrorResponse;
+  }
+
+  const { _id: _, ...bookContents } = JSON.parse(await payload.text()) as Book;
+  const booksClient = createClient(REDIS_CONFIG);
+  const bookWithId = { _id: id, ...bookContents };
+
+  const status = await booksClient.del(
+    `${BOOK_REDIS_KEY}:${id}`,
+    JSON.stringify(bookWithId),
+  );
+
+  if (status !== HttpStatus.OK) {
+    throw new Error('Failed to delete book.');
+  }
+
+  return { _id: id };
+}

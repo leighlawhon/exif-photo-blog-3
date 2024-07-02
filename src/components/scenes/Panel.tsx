@@ -42,8 +42,9 @@ export default function PhotoMedium({
 
     return (
 
-            <Draggable>
+        <Draggable>
                 <img
+                id={photo.id}
                     src={photo.url}
                 key={photoTitle}
                     alt={altTextForPhoto(photo)}

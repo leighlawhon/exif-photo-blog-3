@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@vercel/kv';
+import { getBooks } from '@/books/actions';
+import { get } from 'http';
 
 interface FileUploaderAndReaderProps {
     editMode: boolean;
@@ -12,6 +14,7 @@ const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) =>
     const [uploadStatus, setUploadStatus] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log("here")
         if (event.target.files && event.target.files.length > 0) {
@@ -21,6 +24,10 @@ const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) =>
 
     const uploadJsonToKV = async (jsonObject: object) => {
         console.log('jsonObject', jsonObject)
+        getBooks().then((books) => {
+            console.log('books', books)
+
+        });
     };
 
     const handleUpload = async () => {

@@ -1,8 +1,18 @@
+import Image from 'next/image';
 import React, { useState, useCallback } from 'react';
 
 const Draggable: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [DraggableContainer, setDraggableContainer] = useState<HTMLDivElement | null>(null);
+    const [ImageEle, setImageEle] = useState<HTMLDivElement | null>(null);
+    const [ImageId, setImageId] = useState("");
+
+    const handleCLick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
+        // setImageId(event.currentTarget.lastElementChild?.id || "No Image ID");
+        // console.log("event", event.currentTarget.lastElementChild?.id, "ImageID", ImageId);
+    };
 
     const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
@@ -11,6 +21,8 @@ const Draggable: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             x: event.clientX,
             y: event.clientY,
         });
+        setDraggableContainer(event.currentTarget as HTMLDivElement);
+        // setImageEle(event.currentTarget.lastElementChild as HTMLImageElement);
     }, []);
 
     const hasParentWithClass = (element: HTMLElement | null, className: string) => {
@@ -40,8 +52,12 @@ const Draggable: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         }
     }, [isDragging, position]);
 
-    const handleMouseUp = useCallback(() => {
+    const handleMouseUp = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.stopPropagation();
         setIsDragging(false);
+        console.log("event", event.currentTarget.lastElementChild?.id, "ImageID", ImageId);
+
+
     }, []);
 
     return (
@@ -49,6 +65,7 @@ const Draggable: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             onMouseDown={handleMouseDown}
             onMouseMove={isDragging ? handleMouseMove : undefined}
             onMouseUp={handleMouseUp}
+            onClick={handleCLick}
             style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
             className='draggable_container'
         >

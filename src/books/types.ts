@@ -7,7 +7,7 @@ export interface ErrorResponse {
 }
 
 export interface Book {
-  _id: ReturnType<typeof randomUUID>;
+  _id: string;
   title: string;
   chapters: ChapterWrapper[];
 }

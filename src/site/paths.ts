@@ -13,6 +13,8 @@ export const PATH_API                 = '/api';
 export const PATH_SIGN_IN             = '/sign-in';
 export const PATH_OG                  = '/og';
 export const PATH_READER = '/reader';
+export const PATH_BOOK_SELECTOR = '/book-selector';
+
 
 // Path prefixes
 export const PREFIX_PHOTO             = '/p';
@@ -20,8 +22,11 @@ export const PREFIX_TAG               = '/tag';
 export const PREFIX_CAMERA            = '/shot-on';
 export const PREFIX_FILM_SIMULATION   = '/film';
 export const PREFIX_FOCAL_LENGTH      = '/focal';
+export const PREFIX_BOOK = '/book';
+
 
 // Dynamic paths
+export const PATH_BOOK_DYNAMIC = `${PREFIX_BOOK}/[bookID]`;
 const PATH_PHOTO_DYNAMIC              = `${PREFIX_PHOTO}/[photoId]`;
 const PATH_TAG_DYNAMIC                = `${PREFIX_TAG}/[tag]`;
 const PATH_CAMERA_DYNAMIC             = `${PREFIX_CAMERA}/[make]/[model]`;
@@ -63,6 +68,8 @@ export const PATHS_TO_CACHE = [
   PATH_GRID,
   PATH_OG,
   PATH_READER,
+  PATH_BOOK_SELECTOR,
+  PATH_BOOK_DYNAMIC,
   PATH_PHOTO_DYNAMIC,
   PATH_TAG_DYNAMIC,
   PATH_CAMERA_DYNAMIC,

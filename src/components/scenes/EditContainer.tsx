@@ -6,11 +6,11 @@ import ReaderText from './ReaderText';
 import SceneContainer from './SceneContainer';
 import { Photo } from '@/photo';
 
-interface PhotoViewerProps {
+interface EditContainerProps {
     photos: Photo[];
 }
 
-const PhotoViewer: React.FC<PhotoViewerProps> = ({ photos }) => {
+const EditContainer: React.FC<EditContainerProps> = ({ photos }) => {
     const [editMode, setEditMode] = useState(true);
 
     const toggleEditMode = () => {
@@ -35,4 +35,4 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({ photos }) => {
     );
 };
 
-export default PhotoViewer;
+export default EditContainer;

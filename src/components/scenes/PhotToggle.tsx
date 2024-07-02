@@ -13,6 +13,7 @@ const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
     const handleFilter = (tag: string) => {
         setSelected(tag);
         onFilter(tag);
+        // Set CSS
     };
 
     return (
@@ -21,7 +22,7 @@ const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
                 className={`toggle-button ${selected === 'All' ? 'active' : ''}`}
                 onClick={() => handleFilter('All')}
             >
-                All
+                View Panel
             </button>
             {photos.map((photo) => (
                 <button

@@ -258,6 +258,9 @@ export default function CommandKClient({
       }, {
         label: 'Reader',
         path: '/reader',
+      }, {
+        label: 'Book Selector',
+        path: '/book-selector',
       }]),
   };
 
