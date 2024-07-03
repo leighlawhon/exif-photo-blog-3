@@ -1,15 +1,21 @@
 
+'use client';
 import React, { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@vercel/kv';
-import { getBooks } from '@/books/actions';
+import { getBooks, updateBook, createBook } from '@/books/actions';
 import { get } from 'http';
+import { Book } from '@/books/types';
 
-interface FileUploaderAndReaderProps {
+import { isJsonFile } from '@/books/utils';
+
+interface JsonFileUploaderProps {
     editMode: boolean;
+    bookID?: string;
+    mode: string;
 }
 
 
-const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) => {
+const JsonFileUploader: React.FC<JsonFileUploaderProps> = ({ editMode, bookID, mode }) => {
     const [file, setFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,12 +28,20 @@ const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) =>
         }
     };
 
-    const uploadJsonToKV = async (jsonObject: object) => {
-        console.log('jsonObject', jsonObject)
-        getBooks().then((books) => {
-            console.log('books', books)
+    const uploadJsonToKV = async (formObject: FormData) => {
+        console.log('formObject', formObject)
+        if (mode == 'create') {
+            createBook(formObject).then((response) => {
+                console.log('response', response)
+            });
+        }
+        if (mode == 'update' && bookID) {
+            formObject.append("_id", bookID);
+            updateBook(formObject).then((response) => {
+                console.log('response', response)
+            });
+        }
 
-        });
     };
 
     const handleUpload = async () => {
@@ -37,8 +51,11 @@ const JsonFileUploader: React.FC<FileUploaderAndReaderProps> = ({ editMode }) =>
             reader.onload = async (e) => {
                 if (e.target?.result) {
                     try {
-                        const jsonObject = JSON.parse(e.target.result as string);
-                        await uploadJsonToKV(jsonObject);
+                        const form_data = new FormData();
+                        form_data.append("book", file);
+                        console.log(isJsonFile(file))
+
+                        await uploadJsonToKV(form_data);
                     } catch (error) {
                         console.error('Error parsing JSON file:', error);
                         setUploadStatus('Error parsing JSON file');

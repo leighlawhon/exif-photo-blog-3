@@ -41,11 +41,6 @@ const BookContainer: React.FC<BookContainerProps> = ({ photos }) => {
         fetchBook();
     }, []);
 
-    console.log("here", selectedBook);
-
-    console.log(bookid, selectedBook?.title, "from url");
-
-    // Rest of your code...
 
     if (selectedBook !== undefined) {
     return (

@@ -6,6 +6,7 @@ import ReaderText from './ReaderText';
 import SceneContainer from './SceneContainer';
 import { Photo } from '@/photo';
 import { Book } from '@/books/types';
+import JsonFileUploader from './JsonFileUploader';
 
 
 interface BookEditorProps {
@@ -17,10 +18,11 @@ interface BookEditorProps {
 
 const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, toggleEditMode, book }) => {
 
-
     return (
         <div id="comic-page" >
             <ToggleSwitch onToggle={toggleEditFunc} isVisible={true} >
+                <JsonFileUploader editMode={toggleEditMode} bookID={book._id} mode="update" />
+
 
                 <ReaderText editMode={toggleEditMode} book={book} />
 

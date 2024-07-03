@@ -6,6 +6,7 @@ import BookList from './BookList';
 
 import React, { useState, useEffect } from 'react';
 import { Book } from '@/books/types';
+import JsonFileUploader from './JsonFileUploader';
 
 interface BookSelectorProps {
     editMode: boolean;
@@ -36,6 +37,7 @@ export default function BookSelector({ editMode }: BookSelectorProps) {
             'border border-gray-200 dark:border-gray-800 rounded-md',
             'divide-y divide-gray-200 dark:divide-gray-800',
         )}>
+            {/* <JsonFileUploader editMode={editMode} /> */}
             <BookList books={books} />
         </div>
     );

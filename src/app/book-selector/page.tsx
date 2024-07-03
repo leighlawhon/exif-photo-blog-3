@@ -1,5 +1,6 @@
 import { PATH_BOOK_SELECTOR } from '@/site/paths';
 import BookSelector from '@/components/scenes/BookSelector';
+import JsonFileUploader from '@/components/scenes/JsonFileUploader';
 
 export const dynamic = 'force-static';
 
@@ -15,7 +16,8 @@ export default async function BookSelectorPage() {
                     <h3 className="text-start p-3">Available Books</h3>
                 </div>
             </div>
-            <BookSelector editMode={false} />
+            <JsonFileUploader editMode={true} mode="create" />
+            <BookSelector editMode={true} />
             <div className="row ">
                 <div className="col-3">
 

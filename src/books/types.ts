@@ -9,14 +9,10 @@ export interface ErrorResponse {
 export interface Book {
   _id: string;
   title: string;
-  chapters: ChapterWrapper[];
+  chapters: Chapters[];
 }
 
-export interface ChapterWrapper {
-  chapter: Chapter;
-}
-
-export interface Chapter {
+export interface Chapters {
   title: string;
   word_count: string;
   scenes: Scene[];
