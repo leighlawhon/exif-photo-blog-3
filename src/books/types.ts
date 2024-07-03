@@ -9,10 +9,15 @@ export interface ErrorResponse {
 export interface Book {
   _id: string;
   title: string;
-  chapters: Chapters[];
+  chapters: ChapterWrapper[];
 }
 
-export interface Chapters {
+export interface ChapterWrapper {
+  scenes: any;
+  chapter: Chapter;
+}
+
+export interface Chapter {
   title: string;
   word_count: string;
   scenes: Scene[];

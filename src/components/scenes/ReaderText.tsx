@@ -20,9 +20,9 @@ export default function ReaderText({ book, editMode }: ReaderTextProps) {
     const [currentSceneMessage, setCurrentSceneMessage] = useState('first page');
 
     useEffect(() => {
-        setCurrentChapterScenesLength(book.chapters[currentChapter]?.scenes.length || 0);
-        setCurrentSceneTitle(book.chapters[currentChapter]?.scenes[currentScene]?.title || '');
-        setCurrentChapterTitle(book.chapters[currentChapter]?.title || '');
+        setCurrentChapterScenesLength(book.chapters[currentChapter]?.chapter.scenes.length || 0);
+        setCurrentSceneTitle(book.chapters[currentChapter]?.chapter.scenes[currentScene]?.title || '');
+        setCurrentChapterTitle(book.chapters[currentChapter]?.chapter.title || '');
         setCurrentSceneMessage('first page');
     }, [book, currentChapter, currentScene]);
 
@@ -48,7 +48,7 @@ export default function ReaderText({ book, editMode }: ReaderTextProps) {
                 return;
             } else {
                 setCurrentChapter(currentChapter - 1);
-                setCurrentScene(book.chapters[currentChapter - 1]?.scenes.length - 1 || 0);
+                setCurrentScene(book.chapters[currentChapter - 1]?.chapter.scenes.length - 1 || 0);
             }
         } else {
             setCurrentScene(currentScene - 1);
@@ -66,7 +66,8 @@ export default function ReaderText({ book, editMode }: ReaderTextProps) {
             <div>{currentSceneMessage}</div>
 
             <PageNav forwardNav={handleForwardClick} backNav={handleBackClick} >
-                {book.chapters.map((chapter, i) => {
+                {book.chapters.map((chapterObj, i) => {
+                    const chapter = chapterObj.chapter;
                     return (
                         i === currentChapter && (<div key={'chapter-' + i} className="chapter">
                             <h2>{chapter.title} {editMode}</h2>

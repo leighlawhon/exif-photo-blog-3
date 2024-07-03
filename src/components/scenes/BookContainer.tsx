@@ -17,8 +17,6 @@ interface BookContainerProps {
     photos: Photo[];
 }
 
-
-
 const BookContainer: React.FC<BookContainerProps> = ({ photos }) => {
     const [editMode, setEditMode] = useState(true);
     const [selectedBook, setSelectedBook] = useState<Book>();

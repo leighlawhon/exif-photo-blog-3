@@ -17,6 +17,8 @@ export default async function BookSelectorPage() {
                 </div>
             </div>
             <JsonFileUploader editMode={true} mode="create" />
+            <JsonFileUploader editMode={true} mode="delete" />
+
             <BookSelector editMode={true} />
         </div>
 
