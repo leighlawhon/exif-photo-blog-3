@@ -27,11 +27,9 @@ export interface Scene {
 export interface Panel {
   original_text: string;
   word_count: string;
-  descriptions: Description[];
-}
-
-export interface Description {
   environment: string;
   action: string;
   characters: string[];
 }
+
+

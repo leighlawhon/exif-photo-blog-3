@@ -46,7 +46,7 @@ const BookContainer: React.FC<BookContainerProps> = ({ photos }) => {
     return (
         <div>
             {selectedBook?.title}
-            <BookEditor toggleEditMode={editMode} toggleEditFunc={toggleEditMode} photos={photos} book={selectedBook} />
+            <BookEditor editMode={editMode} toggleEditFunc={toggleEditMode} photos={photos} book={selectedBook} />
 
         </div>
     );

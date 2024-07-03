@@ -12,25 +12,26 @@ import JsonFileUploader from './JsonFileUploader';
 interface BookEditorProps {
     photos: Photo[];
     book: Book;
-    toggleEditMode: boolean;
+    editMode: boolean;
     toggleEditFunc: () => void;
 }
 
-const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, toggleEditMode, book }) => {
+const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMode, book }) => {
+    console.log(editMode, "editMode")
 
     return (
         <div id="comic-page" >
             <ToggleSwitch onToggle={toggleEditFunc} isVisible={true} >
-                <JsonFileUploader editMode={toggleEditMode} bookID={book._id} mode="update" />
+                <JsonFileUploader editMode={editMode} bookID={book._id} mode="update" />
 
 
-                <ReaderText editMode={toggleEditMode} book={book} />
+                <ReaderText editMode={editMode} book={book} />
 
                 {photos.length > 0 ? (
                     <SceneContainer
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}
-                        editMode={toggleEditMode}
+                        editMode={editMode}
                     />
                 ) : (
                     <div>No photos</div>

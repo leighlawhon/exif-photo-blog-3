@@ -38,7 +38,7 @@ export default function BookSelector({ editMode }: BookSelectorProps) {
             'divide-y divide-gray-200 dark:divide-gray-800',
         )}>
             {/* <JsonFileUploader editMode={editMode} /> */}
-            <BookList books={books} />
+            {books.length === 0 ? <div>Loading...</div> : <BookList books={books} />}
         </div>
     );
 }

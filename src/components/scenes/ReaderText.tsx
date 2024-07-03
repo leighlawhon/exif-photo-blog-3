@@ -10,7 +10,8 @@ interface ReaderTextProps {
     editMode: boolean;
 }
 
-export default function ReaderText({ book }: ReaderTextProps) {
+export default function ReaderText({ book, editMode }: ReaderTextProps) {
+    console.log(editMode, "editMode")
     const [currentScene, setCurrentScene] = useState(0);
     const [currentChapter, setCurrentChapter] = useState(0);
     const [currentChapterScenesLength, setCurrentChapterScenesLength] = useState(0);
@@ -26,6 +27,7 @@ export default function ReaderText({ book }: ReaderTextProps) {
     }, [book, currentChapter, currentScene]);
 
     const handleForwardClick = async () => {
+        console.log(currentScene, currentChapter, currentChapterScenesLength)
         if (currentScene === currentChapterScenesLength - 1) {
             if (currentChapter === book.chapters.length - 1) {
                 // Last scene in the last chapter, do nothing
@@ -56,6 +58,7 @@ export default function ReaderText({ book }: ReaderTextProps) {
 
 
     const curentURL = PATH_BOOK_DYNAMIC + "?bookID=" + useSearchParams().get('bookID');
+    console.log(book)
     return (
         <div id="text-container">
             <BookBreadCrumb booktitle={book.title} scenetitle={currentSceneTitle} chaptertitle={currentChapterTitle} curentURL={curentURL} resetChapter={resetChapter} />
@@ -66,19 +69,35 @@ export default function ReaderText({ book }: ReaderTextProps) {
                 {book.chapters.map((chapter, i) => {
                     return (
                         i === currentChapter && (<div key={'chapter-' + i} className="chapter">
-                            <h2>{chapter.title}</h2>
+                            <h2>{chapter.title} {editMode}</h2>
                             {chapter.scenes.map((scene, j) => {
                                 return (
-                                    <div key={'scenes-' + j} className="scene">
+                                    j == currentScene && (<div key={'scenes-' + j} className="scene">
                                         <h3>{scene.title}</h3>
                                         {scene.panels.map((panel, k) => {
                                             return (
-                                                <div key={'panel-' + k} className="panel-text">
+                                                <div key={'panel-' + k}>
+                                                    {editMode && (
+                                                        <div className="panel-text">
+                                                            <div>
+                                                                <ul>
+                                                                    <li>Actions: {panel.action}</li>
+                                                                    <li>
+                                                                        {panel.characters.map((character, l) => (
+                                                                            <span key={l}>{character}</span>
+                                                                        ))}
+                                                                    </li>
+
+                                                                    <li>Environment: {panel.environment}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                     <p>{panel.original_text}</p>
                                                 </div>
                                             );
                                         })}
-                                    </div>
+                                    </div>)
                                 );
                             })}
                         </div>)

@@ -18,30 +18,6 @@ export default async function BookSelectorPage() {
             </div>
             <JsonFileUploader editMode={true} mode="create" />
             <BookSelector editMode={true} />
-            <div className="row ">
-                <div className="col-3">
-
-                    <div className="card" >
-                        <img src="/images/great_gatsby.png" className="card-img-top" alt="..." />
-
-                        <div className="card-body">
-                            <p className="card-text">The Great Gatsby</p>
-                        </div>
-
-                    </div>
-                </div>
-                <div className="col-2">
-
-                    <div className="card" >
-                        <img src="/images/alice_wonderland.png" className="card-img-top" alt="..." />
-
-                        <div className="card-body">
-                            <p className="card-text">Alice In Wonderland</p>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
 
     );

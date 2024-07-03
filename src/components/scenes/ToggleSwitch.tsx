@@ -8,7 +8,7 @@ interface ToggleSwitchProps {
 }
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ children, isVisible, onToggle }) => {
-    const [toggleChecked, setToggleChecked] = useState(false);
+    const [toggleChecked, setToggleChecked] = useState(true);
 
     const toggleVisibility = () => {
         onToggle(!isVisible);
