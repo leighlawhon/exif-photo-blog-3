@@ -83,7 +83,7 @@ export default function PanelLayout({
                                                 onVisible: index === photos.length - 1 ? onLastPhotoVisible : undefined,
                                             }}
                                             className="flex w-full h-full"
-                                            key={photo.id}
+                                                key={"something" + photo.id}
                                         />
                                     )).concat(additionalTile ?? [])}
                                 </div>
