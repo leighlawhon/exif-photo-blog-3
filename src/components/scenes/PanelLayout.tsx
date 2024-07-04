@@ -66,6 +66,7 @@ export default function PanelLayout({
                                     </div>
                                 )}
                                 <div id={sceneTag} key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
+                                    <p>{sceneTag}</p>
                                     {
                                         panelPhotos.map((photo, index) => (
                                         <Panel
