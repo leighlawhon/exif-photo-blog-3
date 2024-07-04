@@ -22,6 +22,8 @@ export default function PanelLayout({
     book,
     onLastPhotoVisible,
     onAnimationComplete,
+    currentScene,
+    currentChapter
 }: {
         editMode: boolean
     photos: Photo[]
@@ -35,6 +37,8 @@ export default function PanelLayout({
         book?: Book
     onLastPhotoVisible?: () => void
     onAnimationComplete?: () => void
+        currentScene: number,
+        currentChapter: number
 }) {
     return (
         <div>

@@ -59,6 +59,8 @@ export default function SceneContainer({
                             photos: filteredPhotos,
                             book,
                             tags,
+                            currentScene,
+                            currentChapter,
                             animateOnFirstLoadOnly,
                             onAnimationComplete,
                             editMode,
