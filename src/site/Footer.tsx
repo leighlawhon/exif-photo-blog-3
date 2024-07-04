@@ -57,11 +57,11 @@ export default function Footer() {
                     </>}
                   </>
                   : <>
-                    <Link href={PATH_ADMIN_PHOTOS}>
+                    {/* <Link href={PATH_ADMIN_PHOTOS}>
                       Admin
                     </Link>
                     {SHOW_REPO_LINK &&
-                      <RepoLink />}
+                      <RepoLink />} */}
                   </>}
               </div>
               <div className="flex items-center h-10">

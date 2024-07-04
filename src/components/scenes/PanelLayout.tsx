@@ -1,8 +1,11 @@
-import { Photo } from '@/photo';
+import { INFINITE_SCROLL_GRID_PHOTO_INITIAL, Photo } from '@/photo';
 import Panel from './Panel';
 import { Camera } from '@/camera';
 import { FilmSimulation } from '@/simulation';
 import { Book } from '@/books/types';
+import PhotoToggle from './PhotToggle';
+import { cache, useState } from 'react';
+import { getPhotos } from '@/photo/db/query';
 
 export default function PanelLayout({
     editMode,
@@ -18,7 +21,6 @@ export default function PanelLayout({
     onLastPhotoVisible,
     currentScene,
     currentChapter,
-    currentPanel
 }: {
         editMode: boolean;
         photos: Photo[];
@@ -33,28 +35,35 @@ export default function PanelLayout({
         onLastPhotoVisible?: () => void;
         currentScene: number;
         currentChapter: number;
-        currentPanel: number;
 }) {
+    const [filteredPhotos, setFilteredPhotos] = useState(photos);
+
+    const handleFilter = (tag: string) => {
+        if (tag === 'All') {
+            setFilteredPhotos(photos);
+        } else {
+            setFilteredPhotos(photos.filter(photo => photo.tags.includes(tag)));
+        }
+    };
+
+
     return (
         <div>
-            <div>
-                {editMode &&
-                    book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) =>
-                        <div className={"panel-" + i}>
-                            {panel.characters.map((character: string) => (
-                                <span className="phototag">{character}</span>
-                            ))}
-                        </div>
-                    )
-                }
-            </div>
             <div className="panel-container">
                 <div>
-                    {editMode &&
-                        book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) =>
-                            <div key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
-                                {
-                                    photos.map((photo, index) => (
+                    {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => {
+                        const sceneTag = `panel-${currentChapter}-${currentScene}-${i}`;
+                        const panelPhotos = filteredPhotos.filter(photo => photo.tags.includes(sceneTag));
+
+                        return (
+                            <div>
+                                {editMode && (
+                                    <div className={"panel-tags-" + i}>
+                                        <PhotoToggle characters={panel.characters} onFilter={handleFilter} />
+                                    </div>
+                                )}
+                                <div id={sceneTag} key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
+                                    {panelPhotos.map((photo, index) => (
                                         <Panel
                                             {...{
                                                 editMode,
@@ -71,14 +80,13 @@ export default function PanelLayout({
                                             className="flex w-full h-full"
                                             key={photo.id}
                                         />
-                                    )).concat(additionalTile ?? [])
-                                }
+                                    )).concat(additionalTile ?? [])}
+                                </div>
                             </div>
-                        )
-                    }
+                        );
+                    })}
                 </div>
-
             </div>
         </div>
     );
-};
+}

@@ -29,7 +29,6 @@ export default function ReaderText({ book, editMode, currentChapter, currentScen
     }, [book, currentChapter, currentScene]);
 
     const handleForwardClick = async () => {
-        console.log(currentScene, currentChapter, currentChapterScenesLength)
         if (currentScene === currentChapterScenesLength - 1) {
             if (currentChapter === book.chapters.length - 1) {
                 // Last scene in the last chapter, do nothing

@@ -1,13 +1,13 @@
-import { Photo } from '@/photo';
+
 import React, { useState } from 'react';
 
 
 interface PhotoToggleProps {
-    photos: Photo[];
+    characters: string[];
     onFilter: (tag: string) => void;
 }
 
-const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
+const PhotoToggle = ({ characters, onFilter }: PhotoToggleProps) => {
     const [selected, setSelected] = useState('All');
 
     const handleFilter = (tag: string) => {
@@ -24,13 +24,13 @@ const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
             >
                 View All
             </button>
-            {photos.map((photo) => (
+            {characters.map((character, i) => (
                 <button
-                    key={photo.id}
-                    className={`toggle-button ${selected === photo.id ? 'active' : ''}`}
-                    onClick={() => handleFilter(photo.id)}
+                    key={"character" + i}
+                    className={`toggle-button ${selected === character[i] ? 'active' : ''}`}
+                    onClick={() => handleFilter(character)}
                 >
-                    {photo.title || 'Photo'}
+                    {character || 'Photo'}
                 </button>
             ))}
         </div>

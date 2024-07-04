@@ -35,19 +35,9 @@ export default function SceneContainer({
         shouldAnimateDynamicItems,
         setShouldAnimateDynamicItems,
     ] = useState(false);
-    const [filteredPhotos, setFilteredPhotos] = useState(photos);
-
-    const onAnimationComplete = useCallback(() =>
-        setShouldAnimateDynamicItems(true), []);
 
     const initialOffset = photos.length;
-    const handleFilter = (tag: string) => {
-        if (tag === 'All') {
-            setFilteredPhotos(photos);
-        } else {
-            setFilteredPhotos(photos.filter(photo => photo.id === tag));
-        }
-    };
+
     return (
         <SiteGrid
             contentMain={<div className={clsx(
@@ -56,16 +46,15 @@ export default function SceneContainer({
                 <div id="scene-container">
                     <div className="space-y-0.5 sm:space-y-1" >
 
-                        {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />}
+                        {/* {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />} */}
                         <PanelLayout {...{
-                            photos: filteredPhotos,
+                            photos,
                             book,
                             tags,
                             currentScene,
                             currentChapter,
                             currentPanel,
                             animateOnFirstLoadOnly,
-                            onAnimationComplete,
                             editMode,
                         }} />
                     </div>
