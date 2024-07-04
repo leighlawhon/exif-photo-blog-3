@@ -23,7 +23,7 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
         <div id="comic-page" >
             <ToggleSwitch onToggle={toggleEditFunc} isVisible={true} >
                 <JsonFileUploader editMode={editMode} bookID={book._id} mode="update" />
-
+                <div className={clsx('grid gap-0.5 sm:gap-1 grid-cols-2 xs:grid-cols-2 items-center, book')}>
 
                 <ReaderText editMode={editMode} book={book} />
 
@@ -36,6 +36,7 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
                 ) : (
                     <div>No photos</div>
                 )}
+                </div>
             </ToggleSwitch>
         </div>
     );

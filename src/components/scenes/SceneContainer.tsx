@@ -48,7 +48,7 @@ export default function SceneContainer({
                     <p>{tags}</p>
                     <div className="space-y-0.5 sm:space-y-1" >
                         {tags}
-                        <PhotoToggle photos={photos} onFilter={handleFilter} />
+                        {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />}
                         <PanelLayout {...{
                             photos: filteredPhotos,
                             tags,

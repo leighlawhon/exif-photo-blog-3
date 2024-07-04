@@ -22,7 +22,7 @@ const PhotoToggle = ({ photos, onFilter }: PhotoToggleProps) => {
                 className={`toggle-button ${selected === 'All' ? 'active' : ''}`}
                 onClick={() => handleFilter('All')}
             >
-                View Panel
+                View All
             </button>
             {photos.map((photo) => (
                 <button

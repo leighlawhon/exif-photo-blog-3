@@ -22,7 +22,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ children, isVisible, onTogg
                 <input type="checkbox" checked={toggleChecked} onChange={toggleVisibility} />
                 <span className="slider"></span>
             </label>
-            <div className={clsx('grid gap-0.5 sm:gap-1 grid-cols-2 xs:grid-cols-2 items-center')}>
+            <div className={'toggle-container'}>
                 {isVisible && children}
             </div>
         </div>

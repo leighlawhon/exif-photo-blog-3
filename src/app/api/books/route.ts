@@ -58,11 +58,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  let bookData = null;
+  let bookID = null;
   try {
-    bookData = await request.formData();
+    if (request.body !== null) {
+      bookID = ((request.body as unknown) as { id: string }).id;
+    } else {
+      throw new Error('Invalid request body.');
+    }
   } catch (e) {
-    // add error response here
     return Response.json({
       status: HttpStatus.BAD_REQUEST,
       message: 'Invalid request body.',
@@ -72,7 +75,7 @@ export async function DELETE(request: NextRequest) {
   }
 
   try {
-    const response = await deleteBook(bookData);
+    const response = await deleteBook(bookID);
     if (isErrorResponse(response)) {
       return Response.json(response, {
         status: response.status,

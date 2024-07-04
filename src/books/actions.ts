@@ -114,8 +114,7 @@ export async function updateBook(bookData: FormData) {
   return { _id: id };
 }
 
-export async function deleteBook(bookData: FormData) {
-  const id = bookData.get('_id');
+export async function deleteBook(id: Book['_id']) {
   if (!id) {
     return {
       status: HttpStatus.BAD_REQUEST,
@@ -130,25 +129,15 @@ export async function deleteBook(bookData: FormData) {
       message: 'Book not found.',
     } as ErrorResponse;
   }
-
-  const payload = bookData.get('book');
-  if (!bookData || !isJsonFile(payload)) {
-    return {
-      status: HttpStatus.BAD_REQUEST,
-      message: 'The book field is required, and must be a JSON file.',
-    } as ErrorResponse;
-  }
-
-  const { _id: _, ...bookContents } = JSON.parse(await payload.text()) as Book;
   const booksClient = createClient(REDIS_CONFIG);
-  const bookWithId = { _id: id, ...bookContents };
+  const bookWithId = { _id: id };
 
   const status = await booksClient.del(
     `${BOOK_REDIS_KEY}:${id}`,
     JSON.stringify(bookWithId),
   );
 
-  if (status !== HttpStatus.OK) {
+  if (status !== 200) {
     throw new Error('Failed to delete book.');
   }
 
