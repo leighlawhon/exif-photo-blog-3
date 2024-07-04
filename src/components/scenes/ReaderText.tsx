@@ -79,7 +79,7 @@ export default function ReaderText({ book, editMode, currentChapter, currentScen
                                         <h3>{scene.title}</h3>
                                         {scene.panels.map((panel, k) => {
                                             return (
-                                                <div key={'panel-' + k}>
+                                                <div className={'panel-' + k} key={'panel-' + k}>
                                                     {editMode && (
                                                         <div className="panel-text">
                                                             <div>

@@ -16,10 +16,12 @@ interface BookEditorProps {
     toggleEditFunc: () => void;
 }
 
-const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMode, book }) => {
+const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMode, book }) => {
     console.log(editMode, "editMode");
     const [currentScene, setCurrentScene] = useState(0);
     const [currentChapter, setCurrentChapter] = useState(0);
+    const [currentPanel, setCurrentPanel] = useState<number>(0);
+
 
     return (
         <div id="comic-page" >
@@ -33,7 +35,7 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
                     <SceneContainer
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}
-                            currentScene={currentScene} currentChapter={currentChapter}
+                            currentScene={currentScene} currentChapter={currentChapter} currentPanel={currentPanel}
                         editMode={editMode}
                             book={book}
                     />
@@ -46,4 +48,4 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
     );
 };
 
-export default EditContainer;
+export default BookEditor;

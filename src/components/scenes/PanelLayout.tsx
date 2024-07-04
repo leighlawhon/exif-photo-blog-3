@@ -1,12 +1,7 @@
-import { INFINITE_SCROLL_GRID_PHOTO_INITIAL, Photo } from '@/photo';
+import { Photo } from '@/photo';
 import Panel from './Panel';
-import { clsx } from 'clsx/lite';
-import AnimateItems from '@/components/AnimateItems';
 import { Camera } from '@/camera';
 import { FilmSimulation } from '@/simulation';
-import { GRID_ASPECT_RATIO, HIGH_DENSITY_GRID } from '@/site/config';
-import { cache } from 'react';
-import { getPhotos } from '@/photo/db/query';
 import { Book } from '@/books/types';
 
 export default function PanelLayout({
@@ -21,50 +16,69 @@ export default function PanelLayout({
     additionalTile,
     book,
     onLastPhotoVisible,
-    onAnimationComplete,
     currentScene,
-    currentChapter
+    currentChapter,
+    currentPanel
 }: {
-        editMode: boolean
-    photos: Photo[]
-    selectedPhoto?: Photo
-    tag?: string
-    camera?: Camera
-    simulation?: FilmSimulation
-    focal?: number
-    photoPriority?: boolean
-    additionalTile?: JSX.Element
-        book?: Book
-    onLastPhotoVisible?: () => void
-    onAnimationComplete?: () => void
-        currentScene: number,
-        currentChapter: number
+        editMode: boolean;
+        photos: Photo[];
+        selectedPhoto?: Photo;
+        tag?: string;
+        camera?: Camera;
+        simulation?: FilmSimulation;
+        focal?: number;
+        photoPriority?: boolean;
+        additionalTile?: JSX.Element;
+        book?: Book;
+        onLastPhotoVisible?: () => void;
+        currentScene: number;
+        currentChapter: number;
+        currentPanel: number;
 }) {
     return (
         <div>
+            <div>
+                {editMode &&
+                    book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) =>
+                        <div className={"panel-" + i}>
+                            {panel.characters.map((character: string) => (
+                                <span className="phototag">{character}</span>
+                            ))}
+                        </div>
+                    )
+                }
+            </div>
+            <div className="panel-container">
+                <div>
+                    {editMode &&
+                        book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) =>
+                            <div key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
+                                {
+                                    photos.map((photo, index) => (
+                                        <Panel
+                                            {...{
+                                                editMode,
+                                                photo,
+                                                photoTitle: photo.title ?? '',
+                                                tag,
+                                                camera,
+                                                simulation,
+                                                focal,
+                                                selected: photo.id === selectedPhoto?.id,
+                                                priority: photoPriority,
+                                                onVisible: index === photos.length - 1 ? onLastPhotoVisible : undefined,
+                                            }}
+                                            className="flex w-full h-full"
+                                            key={photo.id}
+                                        />
+                                    )).concat(additionalTile ?? [])
+                                }
+                            </div>
+                        )
+                    }
+                </div>
 
-            {editMode && <span className="phototag">{book?.chapters[0].chapter.scenes[0].panels[0].characters[0]}</span>}
-            {photos.map((photo, index) =>
-                <Panel
-                    {...{
-                        editMode,
-                        photo,
-                        photoTitle: photo.title ?? '',
-                        tag,
-                        camera,
-                        simulation,
-                        focal,
-                        selected: photo.id === selectedPhoto?.id,
-                        priority: photoPriority,
-                        onVisible: index === photos.length - 1
-                            ? onLastPhotoVisible
-                            : undefined,
-                    }}
-                    className="flex w-full h-full"
-                    key={photo.id}
-                />
-            ).concat(additionalTile ?? [])}
-
+            </div>
         </div>
     );
 };

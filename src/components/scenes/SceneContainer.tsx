@@ -17,7 +17,8 @@ export default function SceneContainer({
     header,
     book,
     currentScene,
-    currentChapter
+    currentChapter,
+    currentPanel
 }: {
         cacheKey: string
         photos: Photo[]
@@ -27,7 +28,8 @@ export default function SceneContainer({
         header?: JSX.Element
         book: Book
         currentScene: number,
-        currentChapter: number
+        currentChapter: number,
+        currentPanel: number // Change the type from [] to number
 }) {
     const [
         shouldAnimateDynamicItems,
@@ -61,6 +63,7 @@ export default function SceneContainer({
                             tags,
                             currentScene,
                             currentChapter,
+                            currentPanel,
                             animateOnFirstLoadOnly,
                             onAnimationComplete,
                             editMode,
