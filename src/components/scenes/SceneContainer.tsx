@@ -6,6 +6,7 @@ import PanelLayout from './PanelLayout';
 import { clsx } from 'clsx/lite';
 import { useCallback, useState } from 'react';
 import PhotoToggle from './PhotToggle';
+import { Book } from '@/books/types';
 
 export default function SceneContainer({
     cacheKey,
@@ -14,13 +15,15 @@ export default function SceneContainer({
     tags,
     animateOnFirstLoadOnly,
     header,
+    book,
 }: {
-    cacheKey: string
-    photos: Photo[]
+        cacheKey: string
+        photos: Photo[]
         editMode: boolean
-    tags?: string
-    animateOnFirstLoadOnly?: boolean
-    header?: JSX.Element
+        tags?: string
+        animateOnFirstLoadOnly?: boolean
+        header?: JSX.Element
+        book: Book
 }) {
     const [
         shouldAnimateDynamicItems,
@@ -51,6 +54,7 @@ export default function SceneContainer({
                         {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />}
                         <PanelLayout {...{
                             photos: filteredPhotos,
+                            book,
                             tags,
                             animateOnFirstLoadOnly,
                             onAnimationComplete,

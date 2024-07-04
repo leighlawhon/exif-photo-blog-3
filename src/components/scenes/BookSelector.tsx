@@ -31,12 +31,7 @@ export default function BookSelector({ editMode }: BookSelectorProps) {
     }, []);
 
     return (
-        <div className={clsx(
-            'bg-white dark:bg-black',
-            'dark:text-gray-400',
-            'border border-gray-200 dark:border-gray-800 rounded-md',
-            'divide-y divide-gray-200 dark:divide-gray-800',
-        )}>
+        <div >
             {/* <JsonFileUploader editMode={editMode} /> */}
             {books.length === 0 ? <div>Loading...</div> : <BookList books={books} />}
         </div>

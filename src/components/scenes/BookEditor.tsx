@@ -32,6 +32,7 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}
                         editMode={editMode}
+                            book={book}
                     />
                 ) : (
                     <div>No photos</div>

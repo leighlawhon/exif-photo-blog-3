@@ -90,7 +90,7 @@ const JsonFileUploader: React.FC<JsonFileUploaderProps> = ({ editMode, bookID, m
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            {editMode && <div>
+            {editMode && <div className={'jsonFileUploader'}>
                 <h2>{mode}</h2>
                 {mode === "delete" && <label htmlFor="bookID">Book ID <input onChange={handleInput} id="bookID" /></label>}
                 {mode !== "delete" && <input type="file" onChange={handleFileChange} />}

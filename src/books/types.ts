@@ -37,4 +37,26 @@ export interface Panel {
   characters: string[];
 }
 
+export interface BookMeta {
+  _id: string;
+  titleTag: string;
+  chapters: ChapterWrapperMeta[];
+}
+export interface ChapterWrapperMeta {
+  chapter: ChapterMeta;
+}
+
+export interface ChapterMeta {
+  scenes: SceneMeta[];
+}
+
+export interface SceneMeta {
+  panels: PanelMeta[];
+}
+
+export interface PanelMeta {
+  environment: string;
+  action: string;
+  characters: string[];
+}
 

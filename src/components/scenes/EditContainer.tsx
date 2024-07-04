@@ -22,10 +22,11 @@ const EditContainer: React.FC<EditContainerProps> = ({ photos, toggleEditFunc, t
         <div id="comic-page" >
             <ToggleSwitch onToggle={toggleEditFunc} isVisible={true} >
 
-                {/* <ReaderText editMode={toggleEditMode} book={book} /> */}
+                <ReaderText editMode={toggleEditMode} book={book} />
 
                 {photos.length > 0 ? (
                     <SceneContainer
+                        book={book}
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}
                         editMode={toggleEditMode}

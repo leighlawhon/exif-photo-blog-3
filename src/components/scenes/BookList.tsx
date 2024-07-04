@@ -16,16 +16,18 @@ export default function BookList({ books }: BookListProps): ReactNode {
                 <div>No books available</div>
             ) : (
                 books.map((book, i) => (
-                    <Link
-                        href={{
-                            pathname: `${PATH_BOOK_DYNAMIC}}`,
-                            query: { bookID: book._id },
-                        }}
-                        key={`book${i}`}>
-                        <h1 className={clsx('text-lg font-semibold', 'dark:text-gray-300')}>
-                            {book.title}
-                        </h1>
-                    </Link>
+                    <div className="bookSelector">
+                        <Link
+                            href={{
+                                pathname: `${PATH_BOOK_DYNAMIC}}`,
+                                query: { bookID: book._id },
+                            }}
+                            key={`book${i}`}>
+                            <h1 className={clsx('text-lg font-semibold', 'dark:text-gray-300')}>
+                                {book.title}
+                            </h1>
+                        </Link>
+                    </div>
                 ))
             )}
         </div>
