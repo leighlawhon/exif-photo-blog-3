@@ -16,6 +16,8 @@ export default function SceneContainer({
     animateOnFirstLoadOnly,
     header,
     book,
+    currentScene,
+    currentChapter
 }: {
         cacheKey: string
         photos: Photo[]
@@ -24,6 +26,8 @@ export default function SceneContainer({
         animateOnFirstLoadOnly?: boolean
         header?: JSX.Element
         book: Book
+        currentScene: number,
+        currentChapter: number
 }) {
     const [
         shouldAnimateDynamicItems,
@@ -48,9 +52,8 @@ export default function SceneContainer({
                 header && 'space-y-8 mt-4',
             )}>
                 <div id="scene-container">
-                    <p>{tags}</p>
                     <div className="space-y-0.5 sm:space-y-1" >
-                        {tags}
+
                         {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />}
                         <PanelLayout {...{
                             photos: filteredPhotos,

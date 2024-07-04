@@ -37,8 +37,9 @@ export default function PanelLayout({
     onAnimationComplete?: () => void
 }) {
     return (
-        <div className="panel"> 
-            {book?.chapters[0].chapter.scenes[0].panels[0].characters[0]}
+        <div>
+
+            {editMode && <span className="phototag">{book?.chapters[0].chapter.scenes[0].panels[0].characters[0]}</span>}
             {photos.map((photo, index) =>
                 <Panel
                     {...{

@@ -14,11 +14,6 @@ export default function PhotoMedium({
     photoTitle,
     editMode,
     tag,
-    camera,
-    simulation,
-    focal,
-    selected,
-    priority,
     prefetch = SHOULD_PREFETCH_ALL_LINKS,
     className,
     onVisible,
@@ -27,11 +22,7 @@ export default function PhotoMedium({
         photo: Photo
         editMode: boolean
         tag?: string
-        camera?: Camera
-        simulation?: FilmSimulation
-        focal?: number
         selected?: boolean
-        priority?: boolean
         prefetch?: boolean
         className?: string
         onVisible?: () => void
@@ -43,6 +34,7 @@ export default function PhotoMedium({
     return (
 
         <Draggable>
+            <div className="panel">
                 <img
                 id={photo.id}
                     src={photo.url}
@@ -50,6 +42,7 @@ export default function PhotoMedium({
                     alt={altTextForPhoto(photo)}
                     className={photo.tags.includes('scene') ? 'scene' : 'character'}
                 />
+            </div>
             </Draggable>
 
     );

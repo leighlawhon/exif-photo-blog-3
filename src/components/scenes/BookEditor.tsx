@@ -17,7 +17,9 @@ interface BookEditorProps {
 }
 
 const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMode, book }) => {
-    console.log(editMode, "editMode")
+    console.log(editMode, "editMode");
+    const [currentScene, setCurrentScene] = useState(0);
+    const [currentChapter, setCurrentChapter] = useState(0);
 
     return (
         <div id="comic-page" >
@@ -25,12 +27,13 @@ const EditContainer: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, edit
                 <JsonFileUploader editMode={editMode} bookID={book._id} mode="update" />
                 <div className={clsx('grid gap-0.5 sm:gap-1 grid-cols-2 xs:grid-cols-2 items-center, book')}>
 
-                <ReaderText editMode={editMode} book={book} />
+                    <ReaderText editMode={editMode} book={book} currentScene={currentScene} currentChapter={currentChapter} setCurrentScene={setCurrentScene} setCurrentChapter={setCurrentChapter} />
 
                 {photos.length > 0 ? (
                     <SceneContainer
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}
+                            currentScene={currentScene} currentChapter={currentChapter}
                         editMode={editMode}
                             book={book}
                     />

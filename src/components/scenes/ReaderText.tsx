@@ -8,12 +8,14 @@ import { PATH_BOOK_DYNAMIC } from '@/site/paths';
 interface ReaderTextProps {
     book: Book;
     editMode: boolean;
+    currentChapter: number;
+    currentScene: number;
+    setCurrentChapter: (chapter: number) => void;
+    setCurrentScene: (scene: number) => void;
 }
 
-export default function ReaderText({ book, editMode }: ReaderTextProps) {
-    console.log(editMode, "editMode")
-    const [currentScene, setCurrentScene] = useState(0);
-    const [currentChapter, setCurrentChapter] = useState(0);
+export default function ReaderText({ book, editMode, currentChapter, currentScene, setCurrentChapter, setCurrentScene }: ReaderTextProps) {
+
     const [currentChapterScenesLength, setCurrentChapterScenesLength] = useState(0);
     const [currentSceneTitle, setCurrentSceneTitle] = useState('');
     const [currentChapterTitle, setCurrentChapterTitle] = useState('');
