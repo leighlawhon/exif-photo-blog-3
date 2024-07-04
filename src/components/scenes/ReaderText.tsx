@@ -59,7 +59,6 @@ export default function ReaderText({ book, editMode, currentChapter, currentScen
 
 
     const curentURL = PATH_BOOK_DYNAMIC + "?bookID=" + useSearchParams().get('bookID');
-    console.log(book)
     return (
         <div id="text-container">
             <BookBreadCrumb booktitle={book.title} scenetitle={currentSceneTitle} chaptertitle={currentChapterTitle} curentURL={curentURL} resetChapter={resetChapter} />
