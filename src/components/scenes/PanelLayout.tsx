@@ -37,6 +37,8 @@ export default function PanelLayout({
         currentChapter: number;
 }) {
     const [filteredPhotos, setFilteredPhotos] = useState(photos);
+    const [panelTogglePhotos, setPanelToggledPhotos] = useState(photos);
+
 
     const handleFilter = (tag: string) => {
         if (tag === 'All') {
@@ -47,6 +49,7 @@ export default function PanelLayout({
     };
 
 
+    // setPanelToggledPhotos(panelPhotos.filter(photo => filteredPhotos.includes(photo)))
     return (
         <div>
             <div className="panel-container">
@@ -56,14 +59,15 @@ export default function PanelLayout({
                         const panelPhotos = filteredPhotos.filter(photo => photo.tags.includes(sceneTag));
 
                         return (
-                            <div>
+                            <div key={"panel-layout-" + i}>
                                 {editMode && (
                                     <div className={"panel-tags-" + i}>
                                         <PhotoToggle characters={panel.characters} onFilter={handleFilter} />
                                     </div>
                                 )}
                                 <div id={sceneTag} key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
-                                    {panelPhotos.map((photo, index) => (
+                                    {
+                                        panelPhotos.map((photo, index) => (
                                         <Panel
                                             {...{
                                                 editMode,
