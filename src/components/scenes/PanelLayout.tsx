@@ -44,7 +44,11 @@ export default function PanelLayout({
         if (tag === 'All') {
             setFilteredPhotos(photos);
         } else {
-            setFilteredPhotos(photos.filter(photo => photo.tags.includes(tag)));
+            console.log(tag, "tag");
+            setFilteredPhotos(photos.filter(photo => {
+                console.log()
+                photo.tags.includes(tag)
+            }));
         }
     };
 

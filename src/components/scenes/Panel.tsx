@@ -35,6 +35,7 @@ export default function PhotoMedium({
 
         <Draggable>
             <div className="panel">
+
                 <img
                 id={photo.id}
                     src={photo.url}

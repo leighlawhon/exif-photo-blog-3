@@ -27,10 +27,10 @@ const PhotoToggle = ({ characters, onFilter }: PhotoToggleProps) => {
             {characters.map((character, i) => (
                 <button
                     key={"character" + i}
-                    className={`toggle-button ${selected === character[i] ? 'active' : ''}`}
-                    onClick={() => handleFilter(character)}
+                    className={`toggle-button ${selected === character.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase() ? 'active' : ''}`}
+                    onClick={() => { handleFilter(character.replace(/"/g, "").replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase()) }}
                 >
-                    {character || 'Photo'}
+                    {character.replace(/"/g, "").replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase() || 'Photo'}
                 </button>
             ))}
         </div>
