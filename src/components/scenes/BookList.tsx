@@ -16,7 +16,7 @@ export default function BookList({ books }: BookListProps): ReactNode {
                 <div>No books available</div>
             ) : (
                 books.map((book, i) => (
-                    <div className="bookSelector">
+                    <div key={"booklis" + i} className="bookSelector">
                         <Link
                             href={{
                                 pathname: `${PATH_BOOK_DYNAMIC}}`,
