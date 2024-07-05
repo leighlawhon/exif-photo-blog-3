@@ -1,11 +1,10 @@
-import { INFINITE_SCROLL_GRID_PHOTO_INITIAL, Photo } from '@/photo';
-import Panel from './Panel';
+import { useState, useEffect } from 'react';
+import { Photo } from '@/photo';
+import ScenePanel from './ScenePanel';
+import PhotoFilterSet from './PhotoFilterSet';
 import { Camera } from '@/camera';
 import { FilmSimulation } from '@/simulation';
 import { Book } from '@/books/types';
-import PhotoToggle from './PhotToggle';
-import { cache, useState } from 'react';
-import { getPhotos } from '@/photo/db/query';
 
 export default function PanelLayout({
     editMode,
@@ -36,65 +35,64 @@ export default function PanelLayout({
         currentScene: number;
         currentChapter: number;
 }) {
-    const [filteredPhotos, setFilteredPhotos] = useState(photos);
-    const [panelTogglePhotos, setPanelToggledPhotos] = useState(photos);
+    const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
+    const [panelTagPhotos, setPanelTagPhotos] = useState<Photo[]>(photos);
+    const [sceneTag, setSceneTag] = useState<string>("");
 
 
-    const handleFilter = (tag: string) => {
-        if (tag === 'All') {
+    useEffect(() => {
+        // Initially filter photos when component mounts or when `photos` or `tag` changes
+        // const initialFilter = tag === 'All' ? photos : photos.filter(photo => photo.tags.includes(tag ?? ''));
+        // setFilteredPhotos(initialFilter);
+    }, [photos, tag]);
+
+    const setPanelPhotosFilter = (newTag: string) => {
+        // Filter photos by newTag and update state
+        // const filtered = photos.filter(photo => photo.tags.includes(newTag));
+        // setFilteredPhotos(filtered);
+        // setPanelTagPhotos(newTag); // Update the current filter tag
+        console.log('newTag', newTag, filteredPhotos)
+    };
+    const handlePanelPhotosFilter = (newTag: string) => {
+        const scenePhotos = photos.filter(photo => photo.tags.includes(newTag));
+        setSceneTag(newTag);
+        setPanelTagPhotos(scenePhotos)
+    }   
+    const handleUpdate = (updateTag: string) => {
+        // Further filter `filteredPhotos` by `updateTag`
+        // if (panelPhotoFilter !== updateTag) {
+        const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
+
+        if (updateTag === 'All') {
+            const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
             setFilteredPhotos(photos);
+            // setPanelTagPhotos(updateTag); // Update the current filter tag
         } else {
-            console.log(tag, "tag");
-            setFilteredPhotos(photos.filter(photo => {
-                console.log()
-                photo.tags.includes(tag)
-            }));
+            console.log('updateTag', updateTag, filteredPhotos)
+            const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
+            console.log(furtherFiltered, "furtherFiltered", filteredPhotos)
+            setFilteredPhotos(furtherFiltered);
+            // setPanelTagPhotos(updateTag); // Update the current filter tag
         }
+
     };
 
-
-    // setPanelToggledPhotos(panelPhotos.filter(photo => filteredPhotos.includes(photo)))
     return (
         <div>
+            <PhotoFilterSet photos={photos} tag={tag ?? 'All'} onFilterChange={setFilteredPhotos} setPanelPhotosFilter={setPanelPhotosFilter} />
             <div className="panel-container">
-                <div>
-                    {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => {
-                        const sceneTag = `panel-${currentChapter}-${currentScene}-${i}`;
-                        const panelPhotos = filteredPhotos.filter(photo => photo.tags.includes(sceneTag));
-
-                        return (
-                            <div key={"panel-layout-" + i}>
-                                {editMode && (
-                                    <div className={"panel-tags-" + i}>
-                                        <PhotoToggle characters={panel.characters} onFilter={handleFilter} />
-                                    </div>
-                                )}
-                                <div id={sceneTag} key={"panel-" + i} className={"panel-" + i + ", panel-border"}>
-                                    {editMode && <p>{sceneTag}</p>}
-                                    {
-                                        panelPhotos.map((photo, index) => (
-                                        <Panel
-                                            {...{
-                                                editMode,
-                                                photo,
-                                                photoTitle: photo.title ?? '',
-                                                tag,
-                                                camera,
-                                                simulation,
-                                                focal,
-                                                selected: photo.id === selectedPhoto?.id,
-                                                priority: photoPriority,
-                                                onVisible: index === photos.length - 1 ? onLastPhotoVisible : undefined,
-                                            }}
-                                            className="flex w-full h-full"
-                                                key={"something" + photo.id}
-                                        />
-                                    )).concat(additionalTile ?? [])}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => (
+                    <ScenePanel
+                        panel={panel}
+                        currentChapter={currentChapter}
+                        currentScene={currentScene}
+                        editMode={editMode}
+                        filteredPhotos={filteredPhotos}
+                        key={"scene-panel-" + i}
+                        index={i}
+                        handleUpdate={handleUpdate}
+                    />
+                ))}
             </div>
         </div>
     );

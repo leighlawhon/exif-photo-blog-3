@@ -54,7 +54,6 @@ export default function SceneContainer({
                             currentScene,
                             currentChapter,
                             currentPanel,
-                            animateOnFirstLoadOnly,
                             editMode,
                         }} />
                     </div>

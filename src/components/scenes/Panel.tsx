@@ -12,10 +12,6 @@ import Draggable from './Drag';
 export default function PhotoMedium({
     photo,
     photoTitle,
-    editMode,
-    tag,
-    prefetch = SHOULD_PREFETCH_ALL_LINKS,
-    className,
     onVisible,
 }: {
         photoTitle: string
@@ -44,7 +40,7 @@ export default function PhotoMedium({
                     className={photo.tags.includes('scene') ? 'scene' : 'character'}
                 />
             </div>
-            </Draggable>
+        </Draggable>
 
     );
 };
