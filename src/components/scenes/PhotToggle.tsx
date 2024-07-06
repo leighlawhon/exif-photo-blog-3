@@ -1,30 +1,34 @@
-
-import React, { useState } from 'react';
-
+import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
 
 interface PhotoToggleProps {
     characters: string[];
     handleUpdate: (tag: string) => void;
+    sceneUpdate: boolean;
 }
 
-const PhotoToggle = ({ characters, handleUpdate }: PhotoToggleProps) => {
+const PhotoToggle = ({ characters, handleUpdate, sceneUpdate }: PhotoToggleProps) => {
     const [selectedCharacter, setSelectedCharacter] = useState<string>('All');
+    useEffect(() => {
+        if (sceneUpdate) {
+            setSelectedCharacter('All');
+        }
+    }, [sceneUpdate, selectedCharacter])
 
     const formatCharacterTag = (character: string) => {
         const chracterSlug = character.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase();
         return chracterSlug
     };
+
     const activateCharacterButton = (character: string) => {
         handleUpdate(character);
         setSelectedCharacter(character);
-        console.log("selected:", character, selectedCharacter);
     }
+
     const activateAllButton = () => {
         handleUpdate('All');
         setSelectedCharacter('All');
     }
-    console.log(selectedCharacter, "____________")
-    // const charactertag = (character: string) => characterTag.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase(); 
+
     return (
         <div className="toggle-button-bar">
             <button
@@ -35,9 +39,7 @@ const PhotoToggle = ({ characters, handleUpdate }: PhotoToggleProps) => {
             </button>
 
             {characters.map((character, i) => {
-                // setCharacterTag(character);
                 return (
-
                     <button
                         key={"character-" + i}
                         className={`toggle-button ${selectedCharacter === formatCharacterTag(character) ? 'active' : ''}`}
@@ -50,6 +52,5 @@ const PhotoToggle = ({ characters, handleUpdate }: PhotoToggleProps) => {
         </div>
     );
 };
-
 
 export default PhotoToggle;

@@ -12,9 +12,11 @@ interface ReaderTextProps {
     currentScene: number;
     setCurrentChapter: (chapter: number) => void;
     setCurrentScene: (scene: number) => void;
+    setSceneUpdate: (update: boolean) => void;
+    sceneUpdate: boolean;
 }
 
-export default function ReaderText({ book, editMode, currentChapter, currentScene, setCurrentChapter, setCurrentScene }: ReaderTextProps) {
+export default function ReaderText({ setSceneUpdate, sceneUpdate, book, editMode, currentChapter, currentScene, setCurrentChapter, setCurrentScene }: ReaderTextProps) {
 
     const [currentChapterScenesLength, setCurrentChapterScenesLength] = useState(0);
     const [currentSceneTitle, setCurrentSceneTitle] = useState('');
@@ -29,6 +31,7 @@ export default function ReaderText({ book, editMode, currentChapter, currentScen
     }, [book, currentChapter, currentScene]);
 
     const handleForwardClick = async () => {
+        setSceneUpdate(!sceneUpdate);
         if (currentScene === currentChapterScenesLength - 1) {
             if (currentChapter === book.chapters.length - 1) {
                 // Last scene in the last chapter, do nothing
@@ -43,6 +46,7 @@ export default function ReaderText({ book, editMode, currentChapter, currentScen
     };
 
     const handleBackClick = async () => {
+        setSceneUpdate(!sceneUpdate);
         if (currentScene === 0) {
             if (currentChapter === 0) {
                 // First scene in the first chapter, do nothing

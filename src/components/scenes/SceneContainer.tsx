@@ -8,6 +8,8 @@ import { useCallback, useState } from 'react';
 import PhotoToggle from './PhotToggle';
 import { Book } from '@/books/types';
 
+import { Dispatch, SetStateAction } from 'react';
+
 export default function SceneContainer({
     cacheKey,
     photos,
@@ -18,7 +20,10 @@ export default function SceneContainer({
     book,
     currentScene,
     currentChapter,
-    currentPanel
+    currentPanel,
+    setCurrentScene,
+    setSceneUpdate,
+    sceneUpdate
 }: {
         cacheKey: string
         photos: Photo[]
@@ -29,14 +34,12 @@ export default function SceneContainer({
         book: Book
         currentScene: number,
         currentChapter: number,
-        currentPanel: number // Change the type from [] to number
-}) {
-    const [
-        shouldAnimateDynamicItems,
-        setShouldAnimateDynamicItems,
-    ] = useState(false);
+        currentPanel: number,
+        setCurrentScene: (scene: number) => void;
+        setSceneUpdate: (update: boolean) => void;
+        sceneUpdate: boolean;
+    }) {
 
-    const initialOffset = photos.length;
 
     return (
         <SiteGrid
@@ -46,7 +49,6 @@ export default function SceneContainer({
                 <div id="scene-container">
                     <div className="space-y-0.5 sm:space-y-1" >
 
-                        {/* {editMode && <PhotoToggle photos={photos} onFilter={handleFilter} />} */}
                         <PanelLayout {...{
                             photos,
                             book,
@@ -55,6 +57,9 @@ export default function SceneContainer({
                             currentChapter,
                             currentPanel,
                             editMode,
+                            setCurrentScene,
+                            setSceneUpdate,
+                            sceneUpdate
                         }} />
                     </div>
                 </div>
