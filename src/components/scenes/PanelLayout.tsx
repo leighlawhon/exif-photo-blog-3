@@ -56,6 +56,7 @@ export default function PanelLayout({
     const handlePanelPhotosFilter = (newTag: string) => {
         const scenePhotos = photos.filter(photo => photo.tags.includes(newTag));
         setSceneTag(newTag);
+        console.log(newTag)
         setPanelTagPhotos(scenePhotos)
     }   
     const handleUpdate = (updateTag: string) => {
@@ -81,7 +82,8 @@ export default function PanelLayout({
         <div>
             <PhotoFilterSet photos={photos} tag={tag ?? 'All'} onFilterChange={setFilteredPhotos} setPanelPhotosFilter={setPanelPhotosFilter} />
             <div className="panel-container">
-                {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => (
+                {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => {
+                    return (
                     <ScenePanel
                         panel={panel}
                         currentChapter={currentChapter}
@@ -91,8 +93,10 @@ export default function PanelLayout({
                         key={"scene-panel-" + i}
                         index={i}
                         handleUpdate={handleUpdate}
+                            handlePanelPhotosFilter={handlePanelPhotosFilter}
                     />
-                ))}
+                    )
+                })}
             </div>
         </div>
     );

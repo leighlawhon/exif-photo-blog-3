@@ -8,28 +8,45 @@ interface PhotoToggleProps {
 }
 
 const PhotoToggle = ({ characters, handleUpdate }: PhotoToggleProps) => {
-    const [selected, setSelected] = useState('All');
+    const [selectedCharacter, setSelectedCharacter] = useState<string>('All');
 
-
-    const charactertag = (character: string) => character.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase(); 
+    const formatCharacterTag = (character: string) => {
+        const chracterSlug = character.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase();
+        return chracterSlug
+    };
+    const activateCharacterButton = (character: string) => {
+        handleUpdate(character);
+        setSelectedCharacter(character);
+        console.log("selected:", character, selectedCharacter);
+    }
+    const activateAllButton = () => {
+        handleUpdate('All');
+        setSelectedCharacter('All');
+    }
+    console.log(selectedCharacter, "____________")
+    // const charactertag = (character: string) => characterTag.replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase(); 
     return (
         <div className="toggle-button-bar">
             <button
-                className={`toggle-button ${selected === 'All' ? 'active' : ''}`}
-                onClick={() => handleUpdate('All')}
+                className={`toggle-button ${selectedCharacter === 'All' ? 'active' : ''}`}
+                onClick={() => activateAllButton()}
             >
                 View All
             </button>
-            {characters.map((character, i) => (
 
-                <button
-                    key={"character" + i}
-                    className={`toggle-button ${selected === charactertag(character) ? 'active' : ''} ${charactertag(character)}`}
-                    onClick={() => { handleUpdate(charactertag(character)) }}
-                >
-                    {character.replace(/"/g, "").replace(/'/g, "").replace(/\(|\)/g, "").replace(" ", "-").toLowerCase() || 'Photo'}
-                </button>
-            ))}
+            {characters.map((character, i) => {
+                // setCharacterTag(character);
+                return (
+
+                    <button
+                        key={"character-" + i}
+                        className={`toggle-button ${selectedCharacter === formatCharacterTag(character) ? 'active' : ''}`}
+                        onClick={() => { activateCharacterButton(formatCharacterTag(character)) }}
+                    >
+                        {formatCharacterTag(character)}
+                    </button>
+                )
+            })}
         </div>
     );
 };

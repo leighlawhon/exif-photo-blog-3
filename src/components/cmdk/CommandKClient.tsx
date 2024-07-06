@@ -355,9 +355,9 @@ export default function CommandKClient({
               {isLoading ? 'Searching ...' : 'No results found'}
             </Command.Empty>
             {queriedSections
-              .concat(SECTION_TAGS)
-              .concat(serverSections)
               .concat(sectionPages)
+              // .concat(SECTION_TAGS)
+              // .concat(serverSections)
               .concat(adminSection)
               .concat(clientSections)
               .filter(({ items }) => items.length > 0)

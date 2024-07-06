@@ -13,7 +13,9 @@ export default function ScenePanel({
     editMode,
     filteredPhotos,
     index,
-    handleUpdate
+    handleUpdate,
+    handlePanelPhotosFilter
+
 }: {
     panel: Panel,
     currentChapter: number,
@@ -22,12 +24,14 @@ export default function ScenePanel({
     filteredPhotos: Photo[]
     index: number,
     handleUpdate: (updateTag: string) => void
+        handlePanelPhotosFilter: (sceneTag: string) => void;
 }) {
-    console.log(filteredPhotos, "filteredPhotos Scene Panel")
+    // console.log(filteredPhotos, "filteredPhotos Scene Panel")
     const sceneTag = `panel-${currentChapter}-${currentScene}-${index}`;
     // Inside ScenePanel, when you need to update PanelLayout's state
     useEffect(() => {
-        handleUpdate(sceneTag);
+        // handleUpdate(character);
+        handlePanelPhotosFilter(sceneTag)
 // Correct: Updates state in response to prop changes, not during render
 
     }, [sceneTag]);
