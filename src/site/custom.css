@@ -255,3 +255,34 @@ h3 {
 .panel-text {
     margin-top: 1em;
 }
+.box {
+    position: relative;
+    display: inline;
+}
+
+.split-button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+i {
+    margin-left: 5px;
+}
+
+
+
+.dropdownlist.open {
+    display: block;
+}
+
+.dropdownlist {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    background-color: #ffffff;
+    min-width: 140px;
+    top: 3rem;
+    border: thin solid #ccc;
+}

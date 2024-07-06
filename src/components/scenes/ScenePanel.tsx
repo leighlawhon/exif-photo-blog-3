@@ -51,7 +51,7 @@ export default function ScenePanel({
         <div key={"panel-layout-" + index}>
             {editMode && (
                 <div className={"panel-tags-" + index}>
-                    <PhotoToggle characters={panel.characters} handleUpdate={handleUpdate} sceneUpdate={sceneUpdate} />
+                    <PhotoToggle photos={photos} characters={panel.characters} handleUpdate={handleUpdate} sceneUpdate={sceneUpdate} />
                 </div>
             )}
             <div id={sceneTag} key={"panel-" + index} className={"panel-" + index + ", panel-border"}>

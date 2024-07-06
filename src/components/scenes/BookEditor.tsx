@@ -17,6 +17,7 @@ interface BookEditorProps {
 }
 
 const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMode, book }) => {
+    console.log(editMode, "editMode");
     const [currentScene, setCurrentScene] = useState(0);
     const [currentChapter, setCurrentChapter] = useState(0);
     const [currentPanel, setCurrentPanel] = useState<number>(0);

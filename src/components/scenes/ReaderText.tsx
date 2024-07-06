@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Book } from '@/books/types';
-import PageNav from './SceneNav';
+import PageNav from './PageNav';
 import BookBreadCrumb from './bookBreadCrumb';
 import { useSearchParams } from 'next/navigation';
 import { PATH_BOOK_DYNAMIC } from '@/site/paths';
@@ -66,8 +66,6 @@ export default function ReaderText({ setSceneUpdate, sceneUpdate, book, editMode
     return (
         <div id="text-container">
             <BookBreadCrumb booktitle={book.title} scenetitle={currentSceneTitle} chaptertitle={currentChapterTitle} curentURL={curentURL} resetChapter={resetChapter} />
-
-            <div>{currentSceneMessage}</div>
 
             <PageNav forwardNav={handleForwardClick} backNav={handleBackClick} >
                 {book.chapters.map((chapterObj, i) => {
