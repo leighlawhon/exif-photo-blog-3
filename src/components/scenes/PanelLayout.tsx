@@ -34,8 +34,7 @@ export default function PanelLayout({
         onLastPhotoVisible?: () => void;
         currentScene: number;
         currentChapter: number;
-}) {
-    const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
+    }) {
     const [panelTagPhotos, setPanelTagPhotos] = useState<Photo[]>(photos);
     const [sceneTag, setSceneTag] = useState<string>("");
 
@@ -51,7 +50,6 @@ export default function PanelLayout({
         // const filtered = photos.filter(photo => photo.tags.includes(newTag));
         // setFilteredPhotos(filtered);
         // setPanelTagPhotos(newTag); // Update the current filter tag
-        console.log('newTag', newTag, filteredPhotos)
     };
     const handlePanelPhotosFilter = (newTag: string) => {
         const scenePhotos = photos.filter(photo => photo.tags.includes(newTag));
@@ -59,40 +57,22 @@ export default function PanelLayout({
         console.log(newTag)
         setPanelTagPhotos(scenePhotos)
     }   
-    const handleUpdate = (updateTag: string) => {
-        // Further filter `filteredPhotos` by `updateTag`
-        // if (panelPhotoFilter !== updateTag) {
-        const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
 
-        if (updateTag === 'All') {
-            const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
-            setFilteredPhotos(photos);
-            // setPanelTagPhotos(updateTag); // Update the current filter tag
-        } else {
-            console.log('updateTag', updateTag, filteredPhotos)
-            const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
-            console.log(furtherFiltered, "furtherFiltered", filteredPhotos)
-            setFilteredPhotos(furtherFiltered);
-            // setPanelTagPhotos(updateTag); // Update the current filter tag
-        }
-
-    };
 
     return (
         <div>
-            <PhotoFilterSet photos={photos} tag={tag ?? 'All'} onFilterChange={setFilteredPhotos} setPanelPhotosFilter={setPanelPhotosFilter} />
+            {/* <PhotoFilterSet photos={photos} tag={tag ?? 'All'} onFilterChange={setFilteredPhotos} setPanelPhotosFilter={setPanelPhotosFilter} /> */}
             <div className="panel-container">
                 {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => {
                     return (
                     <ScenePanel
+                            photos={photos}
                         panel={panel}
                         currentChapter={currentChapter}
                         currentScene={currentScene}
-                        editMode={editMode}
-                        filteredPhotos={filteredPhotos}
+                            editMode={editMode}
                         key={"scene-panel-" + i}
-                        index={i}
-                        handleUpdate={handleUpdate}
+                            index={i}
                             handlePanelPhotosFilter={handlePanelPhotosFilter}
                     />
                     )
