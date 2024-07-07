@@ -28,7 +28,7 @@ const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMod
 
     return (
         <div id="comic-page" >
-            <button onClick={publishBook}>Publish</button>
+            {editMode && <button onClick={publishBook}>Publish</button>}
             <ToggleSwitch onToggle={toggleEditFunc} isVisible={true} >
                 <JsonFileUploader editMode={editMode} bookID={book._id} mode="update" />
                 <div className={clsx('grid gap-0.5 sm:gap-1 grid-cols-2 xs:grid-cols-2 items-center, book')}>

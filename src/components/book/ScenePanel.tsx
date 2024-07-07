@@ -52,7 +52,7 @@ export default function ScenePanel({
                 </div>
             )}
             <div id={sceneTag} key={"panel-" + index} className={"panel-" + index + ", panel-border"}>
-                <p>{sceneTag}</p>
+                {editMode && <p>{sceneTag}</p>}
                 {filteredPhotos.filter(photo => photo.tags.includes(sceneTag)).map((photo: Photo, i) => (
                     <PhotoPanelSet
                         photo={photo}

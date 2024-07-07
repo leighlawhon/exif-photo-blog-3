@@ -11,7 +11,8 @@ export default function Panel({
     onVisible,
     sceneTag,
     index,
-    rootPosition
+    rootPosition,
+    editMode
 }: {
     photoTitle: string
     photo: Photo
@@ -27,7 +28,7 @@ export default function Panel({
 }) {
 
     return (
-        <Draggable sceneTag={sceneTag} imageID={`image-${index}`} rootPosition={rootPosition}>
+        <Draggable editMode={editMode} sceneTag={sceneTag} imageID={`image-${index}`} rootPosition={rootPosition}>
             <div className={`panel ${sceneTag} image-${index} `}>
                 <img
                     src={photo.url}
