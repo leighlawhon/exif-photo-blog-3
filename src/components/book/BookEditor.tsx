@@ -20,7 +20,7 @@ const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMod
     console.log(editMode, "editMode");
     const [currentScene, setCurrentScene] = useState(0);
     const [currentChapter, setCurrentChapter] = useState(0);
-    const [currentPanel, setCurrentPanel] = useState<number>(0);
+    const [, setCurrentPanel] = useState<number>(0);
     const [sceneUpdate, setSceneUpdate] = useState<boolean>(false);
     const publishBook = () => {
 
@@ -35,23 +35,22 @@ const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMod
 
                     <ReaderText setSceneUpdate={setSceneUpdate} sceneUpdate={sceneUpdate} editMode={editMode} book={book} currentScene={currentScene} currentChapter={currentChapter} setCurrentScene={setCurrentScene} setCurrentChapter={setCurrentChapter} />
 
-                {photos.length > 0 ? (
+                    {photos.length > 0 ? (
 
-                    <SceneContainer
-                        cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
-                        photos={photos}
+                        <SceneContainer
+                            cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
+                            photos={photos}
                             currentScene={currentScene}
                             currentChapter={currentChapter}
                             setCurrentScene={setCurrentScene}
-                            currentPanel={currentPanel}
-                        editMode={editMode}
+                            editMode={editMode}
                             book={book}
                             setSceneUpdate={setSceneUpdate}
                             sceneUpdate={sceneUpdate}
-                    />
-                ) : (
-                    <div>No photos</div>
-                )}
+                        />
+                    ) : (
+                        <div>No photos</div>
+                    )}
                 </div>
             </ToggleSwitch>
         </div>

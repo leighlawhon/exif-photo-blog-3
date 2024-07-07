@@ -6,7 +6,7 @@ import {
 import { Metadata } from 'next/types';
 import { getPhotos } from '@/photo/db/query';
 import { cache } from 'react';
-import BookContainer from '@/components/scenes/BookContainer';
+import BookContainer from '@/components/book/BookContainer';
 
 import { getBook } from '@/books/actions';
 import { BookMeta } from '@/books/types';
@@ -22,7 +22,6 @@ const getPhotosCached = cache(() => getPhotos({
 
 
 function getBookIdFromUrl(): string {
-
     const url = window.location.href;
     const urlParams = new URLSearchParams(url);
     return urlParams.get('bookID') || '';
@@ -49,7 +48,6 @@ async function getBookMetaData(): Promise<BookMeta | null> {
             }
             );
         });
-        console.log(bookChapters, "___________________");
 
         return {
             _id: bookId,

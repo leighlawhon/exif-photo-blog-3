@@ -25,11 +25,10 @@ export default function ScenePanel({
     index,
     handlePanelPhotosFilter,
     sceneUpdate,
-    setSceneUpdate
 }: ScenePanelProps) {
     const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
-
     const sceneTag = `panel-${currentChapter}-${currentScene}-${index}`;
+    const [rootPosition, setRootPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
 
     useEffect(() => {
         handlePanelPhotosFilter(sceneTag);
@@ -37,12 +36,10 @@ export default function ScenePanel({
     }, [sceneTag]);
 
     const handleUpdate = (updateTag: string) => {
-        let furtherFiltered: Photo[];
-
         if (updateTag === 'All') {
             setFilteredPhotos(photos.filter((photo) => photo.tags.includes(sceneTag)));
         } else {
-            furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
+            const furtherFiltered = filteredPhotos.filter(photo => photo.tags.includes(updateTag));
             setFilteredPhotos(furtherFiltered);
         }
     };
@@ -61,6 +58,9 @@ export default function ScenePanel({
                         photo={photo}
                         editMode={editMode}
                         key={"photo-" + i}
+                        sceneTag={sceneTag}
+                        index={i}
+                        rootPosition={rootPosition}
                     />
                 ))}
             </div>

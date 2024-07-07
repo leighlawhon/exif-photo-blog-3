@@ -6,7 +6,7 @@ import {
 import { Metadata } from 'next/types';
 import { getPhotos } from '@/photo/db/query';
 import { cache } from 'react';
-import BookSelector from '@/components/scenes/BookSelector';
+import BookSelector from '@/components/book/BookSelector';
 
 export const dynamic = 'force-static';
 

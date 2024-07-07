@@ -1,6 +1,6 @@
 import { PATH_BOOK_SELECTOR } from '@/site/paths';
-import BookSelector from '@/components/scenes/BookSelector';
-import JsonFileUploader from '@/components/scenes/JsonFileUploader';
+import BookSelector from '@/components/book/BookSelector';
+import JsonFileUploader from '@/components/book/JsonFileUploader';
 
 export const dynamic = 'force-static';
 

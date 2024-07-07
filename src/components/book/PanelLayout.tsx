@@ -12,14 +12,14 @@ export default function PanelLayout({
     sceneUpdate,
     setSceneUpdate
 }: {
-        editMode: boolean;
-        photos: Photo[];
-        book?: Book;
-        currentScene: number;
-        currentChapter: number;
-        sceneUpdate: boolean;
-        setSceneUpdate: (update: boolean) => void;
-    }) {
+    editMode: boolean;
+    photos: Photo[];
+    book?: Book;
+    currentScene: number;
+    currentChapter: number;
+    sceneUpdate: boolean;
+    setSceneUpdate: (update: boolean) => void;
+}) {
     const [panelTagPhotos, setPanelTagPhotos] = useState<Photo[]>(photos);
     const [sceneTag, setSceneTag] = useState<string>('');
 

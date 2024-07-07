@@ -380,3 +380,19 @@ i {
     .dropdownlist form>div:nth-child(1)>div:nth-child(1) {
         display: block;
 }
+.panel-container span.toggle-button {
+    width: 2rem;
+}
+
+.panel-container span.toggle-button label.toggle-switch {
+    width: 60px;
+    height: 16px;
+}
+
+.panel-container span.toggle-button label.toggle-switch .slider:before {
+    width: 30px;
+    border-radius: 29%;
+    height: 12px;
+    bottom: 2px;
+    left: 0px;
+}

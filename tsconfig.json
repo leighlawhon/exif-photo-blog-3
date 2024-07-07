@@ -32,7 +32,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/components/scenes/BookList.tsx"  ],
+,
+"src/components/book/BookList.tsx"
+],
   "exclude": [
     "node_modules"
   ]
