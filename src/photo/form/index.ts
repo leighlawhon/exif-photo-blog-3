@@ -22,6 +22,7 @@ type VirtualFields = 'favorite';
 
 export type PhotoFormData = Record<keyof PhotoDbInsert | VirtualFields, string>
 
+
 export type FieldSetType =
   'text' |
   'email' |
@@ -53,6 +54,7 @@ type FormMeta = {
   selectOptionsDefaultLabel?: string
   tagOptions?: AnnotatedTag[]
 };
+
 
 const STRING_MAX_LENGTH_SHORT = 255;
 const STRING_MAX_LENGTH_LONG  = 1000;
@@ -119,10 +121,82 @@ const FORM_METADATA = (
   hidden: { label: 'hidden', type: 'checkbox' },
 });
 
+const FORM_METADATA_TAGS = (
+  tagOptions?: AnnotatedTag[],
+  aiTextGeneration?: boolean,
+): Record<keyof PhotoFormData, FormMeta> => ({
+  title: {
+    label: 'title',
+    capitalize: true,
+    validateStringMaxLength: STRING_MAX_LENGTH_SHORT,
+    hide: true
+  },
+  caption: {
+    label: 'caption',
+    capitalize: true,
+    validateStringMaxLength: STRING_MAX_LENGTH_LONG,
+    hide: true,
+  },
+  tags: {
+    label: 'tags',
+    tagOptions,
+    validate: getValidationMessageForTags,
+  },
+  semanticDescription: {
+    type: 'textarea',
+    label: 'semantic description (not visible)',
+    capitalize: true,
+    validateStringMaxLength: STRING_MAX_LENGTH_LONG,
+    hide: true
+  },
+  id: { label: 'id', readOnly: true, hideIfEmpty: true, },
+  blurData: {
+    label: 'blur data',
+    readOnly: true,
+    hide: true
+  },
+  url: { label: 'url', readOnly: true },
+  extension: { label: 'extension', readOnly: true, },
+  aspectRatio: { label: 'aspect ratio', readOnly: true, hide: true },
+  make: { label: 'camera make', hide: true },
+  model: { label: 'camera model', hide: true },
+  filmSimulation: {
+    label: 'fujifilm simulation',
+    selectOptions: FILM_SIMULATION_FORM_INPUT_OPTIONS,
+    selectOptionsDefaultLabel: 'Unknown',
+    shouldHide: ({ make }) => true,
+  },
+  focalLength: { label: 'focal length', hide: true },
+  focalLengthIn35MmFormat: { label: 'focal length 35mm-equivalent', hide: true },
+  lensMake: { label: 'lens make', hide: true },
+  lensModel: { label: 'lens model', hide: true },
+  fNumber: { label: 'aperture', hide: true },
+  iso: { label: 'ISO', hide: true },
+  exposureTime: { label: 'exposure time', hide: true },
+  exposureCompensation: { label: 'exposure compensation', hide: true },
+  locationName: { label: 'location name', hide: true },
+  latitude: { label: 'latitude', hide: true },
+  longitude: { label: 'longitude', hide: true },
+  takenAt: { label: 'taken at', hide: true },
+  takenAtNaive: { label: 'taken at (naive)', hide: true },
+  priorityOrder: { label: 'priority order', hide: true },
+  favorite: { label: 'favorite', type: 'checkbox', excludeFromInsert: true, hide: true },
+  hidden: { label: 'hidden', type: 'checkbox', hide: true },
+});
+
+
+
+
 export const FORM_METADATA_ENTRIES = (
   ...args: Parameters<typeof FORM_METADATA>
 ) =>
   (Object.entries(FORM_METADATA(...args)) as [keyof PhotoFormData, FormMeta][])
+    .filter(([_, meta]) => !meta.hide);
+
+export const FORM_METADATA_ENTRIES_TAGS = (
+  ...args: Parameters<typeof FORM_METADATA_TAGS>
+) =>
+  (Object.entries(FORM_METADATA_TAGS(...args)) as [keyof PhotoFormData, FormMeta][])
     .filter(([_, meta]) => !meta.hide);
 
 export const convertFormKeysToLabels = (keys: (keyof PhotoFormData)[]) =>
@@ -183,6 +257,33 @@ export const convertPhotoToFormData = (
   } as PhotoFormData);
 };
 
+export const convertPhotoToFormDataTags = (
+  photo: Photo,
+): PhotoFormData => {
+  const valueForKey = (key: keyof Photo, value: any) => {
+    switch (key) {
+      case 'tags':
+        return (value ?? [])
+          .filter((tag: string) => tag !== TAG_FAVS)
+          .join(', ');
+      case 'takenAt':
+        return value?.toISOString ? value.toISOString() : value;
+      case 'hidden':
+        return value ? 'true' : 'false';
+      default:
+        return value !== undefined && value !== null
+          ? value.toString()
+          : undefined;
+    }
+  };
+  return Object.entries(photo).reduce((photoForm, [key, value]) => ({
+    ...photoForm,
+    [key]: valueForKey(key as keyof Photo, value),
+  }), {
+    favorite: photo.tags.includes(TAG_FAVS) ? 'true' : 'false',
+  } as PhotoFormData);
+};
+
 // CREATE FORM DATA: FROM EXIF
 
 export const convertExifToFormData = (
@@ -218,7 +319,7 @@ export const convertExifToFormData = (
   },
 });
 
-// PREPARE FORM FOR DB INSERT
+// PREPAR
 
 export const convertFormDataToPhotoDbInsert = (
   formData: FormData | Partial<PhotoFormData>,
@@ -298,6 +399,7 @@ export const getChangedFormFields = (
       (current[key as keyof PhotoFormData] ?? '')
     ) as (keyof PhotoFormData)[];
 };
+
 
 export const generateTakenAtFields = (
   form?: Partial<PhotoFormData>

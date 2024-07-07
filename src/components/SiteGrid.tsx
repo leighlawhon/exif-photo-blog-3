@@ -8,6 +8,7 @@ export default function SiteGrid({
   contentSide,
   sideFirstOnMobile,
   sideHiddenOnMobile,
+  classNameSub
 }: {
   containerRef?: RefObject<HTMLDivElement>
   className?: string
@@ -15,12 +16,13 @@ export default function SiteGrid({
   contentSide?: JSX.Element
   sideFirstOnMobile?: boolean
   sideHiddenOnMobile?: boolean
+    classNameSub?: string
 }) {
   return (
     <div
       ref={containerRef}
       className={clsx(
-        className,
+        className ? className :
         'grid',
         'grid-cols-1 md:grid-cols-12',
         'gap-x-4 lg:gap-x-6',
@@ -29,7 +31,7 @@ export default function SiteGrid({
       )}
     >
      
-      <div className={clsx(
+      <div className={clsx(classNameSub ? classNameSub : 
         'col-span-1 md:col-span-9',
         sideFirstOnMobile && 'order-2 md:order-none',
         )}>

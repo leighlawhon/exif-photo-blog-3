@@ -29,6 +29,7 @@ import {
 import {
   PATH_ADMIN_PHOTOS,
   PATH_ADMIN_TAGS,
+  PATH_BOOK_DYNAMIC,
   PATH_ROOT,
   pathForPhoto,
 } from '@/site/paths';
@@ -175,6 +176,7 @@ export const addAllUploadsAction = async ({
     return stream.value;
   });
 
+
 export const updatePhotoAction = async (formData: FormData) =>
   runAuthenticatedAdminServerAction(async () => {
     const photo = convertFormDataToPhotoDbInsert(formData);
@@ -200,9 +202,38 @@ export const updatePhotoAction = async (formData: FormData) =>
       });
 
     revalidatePhoto(photo.id);
-
     redirect(PATH_ADMIN_PHOTOS);
   });
+
+export const updatePhotoActionTags = async (formData: FormData, redirecturl: string) =>
+  runAuthenticatedAdminServerAction(async () => {
+    const photo = convertFormDataToPhotoDbInsert(formData);
+
+    let urlToDelete: string | undefined;
+    if (photo.hidden && photo.url.includes(photo.id)) {
+      // Backfill:
+      // Anonymize storage url on update if necessary by
+      // re-running image upload transfer logic
+      const url = await convertUploadToPhoto({
+        urlOrigin: photo.url,
+        shouldDeleteOrigin: false,
+      });
+      if (url) {
+        urlToDelete = photo.url;
+        photo.url = url;
+      }
+    }
+
+    await updatePhoto(photo)
+      .then(async () => {
+        if (urlToDelete) { await deleteFile(urlToDelete); }
+      });
+
+    revalidatePhoto(photo.id);
+    redirect(redirecturl);
+  });
+
+
 
 export const toggleFavoritePhotoAction = async (
   photoId: string,

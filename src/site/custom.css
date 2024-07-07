@@ -16,7 +16,7 @@ nav {
 }
 
 .panel {
-        position: relative;
+    position: relative;
 }
 
 #comic-page {
@@ -88,10 +88,11 @@ input:focus+.slider {
 input:checked+.slider:before {
     transform: translateX(26px);
 }
+
 .move {
     position: absolute;
     top: 20px;
-        left: 200px;
+    left: 200px;
     width: 3rem;
     height: 3rem;
     z-index: 4;
@@ -101,11 +102,13 @@ input:checked+.slider:before {
     stroke: white;
     stroke-width: 3;
 }
+
 .draggable_container {
     position: absolute;
-        height: 100%;
+    height: 100%;
         width: 100%;
 }
+
 .toggle-button-bar {
     display: flex;
     flex-wrap: wrap;
@@ -230,6 +233,7 @@ h3 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
+
 .phototag {
     width: 100%;
     padding: 0.5rem 0.5rem;
@@ -238,7 +242,6 @@ h3 {
 }
 
 .panel-container {
-    position: relative;
     height: 26rem;
     width: 26rem;
 }
@@ -255,6 +258,7 @@ h3 {
 .panel-text {
     margin-top: 1em;
 }
+
 .box {
     position: relative;
     display: inline;
@@ -271,18 +275,108 @@ i {
     margin-left: 5px;
 }
 
-
-
-.dropdownlist.open {
-    display: block;
-}
-
 .dropdownlist {
-    display: none;
     position: absolute;
+    overflow: auto;
+    right: 0;
+    width: 20rem;
+    height: 90%;
     z-index: 99;
     background-color: #ffffff;
     min-width: 140px;
     top: 3rem;
     border: thin solid #ccc;
+}
+
+.dropdownlist.open {
+    display: block;
+    -webkit-animation: linear;
+        -webkit-animation-name: slideInfromRight;
+        -webkit-animation-duration: 1s;
+        animation: linear;
+        animation-name: slideInfromRight;
+        animation-duration: 1s;
+}
+
+.dropdownlist.closed {
+    display: none;
+    -webkit-animation: linear;
+        -webkit-animation-name: slideoutfromLeft;
+        -webkit-animation-duration: 1s;
+        animation: linear;
+        animation-name: slideoutfromLeft;
+        animation-duration: 1s;
+    }
+    
+    .scene-container {
+        height: 100%;
+        position: relative;
+    }
+    
+    .scene-photos {
+        height: 100%;
+        position: relative;
+    }
+    
+    @keyframes slideInfromRight {
+        0% {
+            right: -50%;
+        }
+    
+        100% {
+            right: 0%;
+        }
+    }
+    
+    @-webkit-keyframes slideInfromRight {
+        0% {
+            right: -50%;
+        }
+    
+        100% {
+            right: 0%;
+        }
+    }
+    
+    @keyframes slideoutfromLeft {
+        0% {
+            left: -50%;
+        }
+    
+        100% {
+            left: 0%;
+        }
+    }
+    
+    @-webkit-keyframes slideoutfromLeft {
+        0% {
+            left: 0
+        }
+    
+        100% {
+            left: 0;
+        }
+    }
+    
+    .image-radio {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .selector-thumabnail {
+        height: 10rem;
+    border: thin solid #ccc;
+    display: flex;
+    }
+    
+    .selector-thumabnail img {
+        height: 10rem;
+    }
+    
+    .dropdownlist form>div>div {
+        display: none;
+    }
+    
+    .dropdownlist form>div:nth-child(1)>div:nth-child(1) {
+        display: block;
 }

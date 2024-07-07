@@ -42,12 +42,12 @@ export default function SceneContainer({
 
 
     return (
-        <SiteGrid
-            contentMain={<div className={clsx(
-                header && 'space-y-8 mt-4',
-            )}>
-                <div id="scene-container">
-                    <div className="space-y-0.5 sm:space-y-1" >
+        <SiteGrid 
+            classNameSub="scene-photos"
+            className="scene-container-relative"
+            contentMain={<div className="scene-container" >
+                <div id="">
+                    <div className="" >
 
                         <PanelLayout {...{
                             photos,

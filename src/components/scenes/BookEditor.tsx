@@ -36,6 +36,7 @@ const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMod
                     <ReaderText setSceneUpdate={setSceneUpdate} sceneUpdate={sceneUpdate} editMode={editMode} book={book} currentScene={currentScene} currentChapter={currentChapter} setCurrentScene={setCurrentScene} setCurrentChapter={setCurrentChapter} />
 
                 {photos.length > 0 ? (
+
                     <SceneContainer
                         cacheKey={`page-${'PATH_READER'}`} // Assuming PATH_READER is a constant defined elsewhere
                         photos={photos}

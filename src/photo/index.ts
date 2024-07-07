@@ -80,6 +80,7 @@ export interface PhotoDbInsert extends PhotoExif {
   takenAtNaive: string
 }
 
+
 // Raw db response
 export interface PhotoDb extends Omit<PhotoDbInsert, 'takenAt' | 'tags'> {
   updatedAt: Date
@@ -87,6 +88,7 @@ export interface PhotoDb extends Omit<PhotoDbInsert, 'takenAt' | 'tags'> {
   takenAt: Date
   tags: string[]
 }
+
 
 // Parsed db response
 export interface Photo extends PhotoDb {
@@ -139,6 +141,7 @@ export const convertPhotoToPhotoDbInsert = (
   ...photo,
   takenAt: photo.takenAt.toISOString(),
 });
+
 
 export const photoStatsAsString = (photo: Photo) => [
   photo.model,
