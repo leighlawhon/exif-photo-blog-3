@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
 
-const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag: string, editMode: boolean }> = ({
+const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag: string, editMode: boolean, photoTags: string[], setDragOffset: (offset: string) => void }> = ({
     children,
     imageID,
+    photoTags,
     sceneTag,
+    setDragOffset,
     editMode
 }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [panelPosition, setPanelPosition] = useState({ x: 0, y: 0 });
-    const [dragoffset, setDragOffset] = useState<string>();
-
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
         console.log("start", event.currentTarget.offsetLeft);
@@ -43,9 +43,8 @@ const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag
         event.stopPropagation();
         if (editMode) {
             setIsDragging(false);
-            setDragOffset(`left: ${event.currentTarget.offsetLeft}; top: ${event.currentTarget.offsetTop}`);
+            setDragOffset(`{left: ${event.currentTarget.offsetLeft}px; top: ${event.currentTarget.offsetTop}}px`);
         }
-        console.log("offset", dragoffset);
     }, []);
 
     return (

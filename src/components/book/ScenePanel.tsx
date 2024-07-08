@@ -1,7 +1,7 @@
 import { Photo } from "@/photo";
 import PhotoToggle from "./PhotToggle";
 import PhotoPanelSet from "./PhotoPanelSet";
-import { Panel } from "@/books/types";
+import { Character, Panel } from "@/books/types";
 import { useEffect, useState } from "react";
 import slugify from "./utility";
 
@@ -13,6 +13,8 @@ interface ScenePanelProps {
     editMode: boolean;
     index: number;
     handlePanelPhotosFilter: (sceneTag: string) => void;
+    setBookCharactersCSS: (css: string) => void;
+    panelCharacters: Character[];
 }
 
 export default function ScenePanel({
@@ -23,6 +25,8 @@ export default function ScenePanel({
     editMode,
     index,
     handlePanelPhotosFilter,
+    setBookCharactersCSS,
+    panelCharacters
 }: ScenePanelProps) {
     const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>(photos);
     const [filteredScenePhotos, setFilteredScenePhotos] = useState<Photo[]>(photos);
@@ -49,14 +53,16 @@ export default function ScenePanel({
         <div key={"panel-layout-" + index}>
             {editMode && (
                 <div className={"panel-tags-" + index}>
-                    <PhotoToggle photos={photos} characters={panel.characters} handleUpdate={handleUpdate} />
+                    <PhotoToggle photos={photos} panelCharacters={panelCharacters} handleUpdate={handleUpdate} />
                 </div>
             )}
             <div id={sceneTag} key={"panelset-" + index} className={"panelset-" + index + ", panel-border"}>
-                {editMode && <p>{sceneTag}</p>}
+
                 {filteredPhotos.map((photo: Photo, i) => {
                     return (
                     <PhotoPanelSet
+                            setBookCharactersCSS={setBookCharactersCSS}
+                            panel={panel}
                         photo={photo}
                         editMode={editMode}
                         key={"photo-" + i}

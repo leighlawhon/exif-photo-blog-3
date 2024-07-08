@@ -4,15 +4,16 @@ import { Photo } from '@/photo';
 import { convertPhotoToFormData } from '@/photo/form';
 import { PhotoFormTags } from '@/photo/form/PhotoForm';
 import TogglePhotoEditor from './TogglePhotoEditor';
+import { Character } from '@/books/types';
 
 
 interface TogglePhotoEditorProps {
-    characters: string[];
+    panelCharacters: Character[];
     handleUpdate: (tag: string) => void;
     photos: Photo[];
 }
 
-const PhotoToggle = ({ characters, handleUpdate, photos }: TogglePhotoEditorProps) => {
+const PhotoToggle = ({ panelCharacters, handleUpdate, photos }: TogglePhotoEditorProps) => {
     const [selectedCharacter, setSelectedCharacter] = useState<string>('All');
 
     const activateAllButton = () => {
@@ -30,10 +31,10 @@ const PhotoToggle = ({ characters, handleUpdate, photos }: TogglePhotoEditorProp
                 View All
             </button>
 
-            {characters.map((character, i) => {
+            {panelCharacters.map((character, i) => {
 
                 return (
-                    <TogglePhotoEditor key={`photoeditor- ${i}`} index={i} photos={photos} handleUpdate={handleUpdate} character={character} />
+                    <TogglePhotoEditor key={`photoeditor- ${i}`} index={i} photos={photos} handleUpdate={handleUpdate} character={character.name} />
                 )
             })}
         </div>

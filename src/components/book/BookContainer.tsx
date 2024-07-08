@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { getBook } from '@/books/actions';
 import { useSearchParams } from 'next/navigation';
-import { Book, BookMeta } from '@/books/types';
+import { Book } from '@/books/types';
 import { Photo } from '@/photo';
 import ToggleSwitch from './ToggleSwitch';
 import ReaderText from './ReaderText';

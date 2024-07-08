@@ -20,7 +20,6 @@ const BookEditor: React.FC<BookEditorProps> = ({ photos, toggleEditFunc, editMod
     console.log(editMode, "editMode");
     const [currentScene, setCurrentScene] = useState(0);
     const [currentChapter, setCurrentChapter] = useState(0);
-    const [, setCurrentPanel] = useState<number>(0);
     const [sceneUpdate, setSceneUpdate] = useState<boolean>(false);
     const publishBook = () => {
 

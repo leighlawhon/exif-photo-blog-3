@@ -3,12 +3,7 @@
 import SiteGrid from '@/components/SiteGrid';
 import { Photo } from '../../photo';
 import PanelLayout from './PanelLayout';
-import { clsx } from 'clsx/lite';
-import { useCallback, useState } from 'react';
-import PhotoToggle from './PhotToggle';
 import { Book } from '@/books/types';
-
-import { Dispatch, SetStateAction } from 'react';
 
 export default function SceneContainer({
     cacheKey,

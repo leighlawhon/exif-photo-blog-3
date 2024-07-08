@@ -87,7 +87,7 @@ export default function ReaderText({ setSceneUpdate, sceneUpdate, book, editMode
                                                                     <li>Actions: {panel.action}</li>
                                                                     <li>
                                                                         {panel.characters.map((character, l) => (
-                                                                            <span key={l}>{character}</span>
+                                                                            <span key={l}>{character.name}</span>
                                                                         ))}
                                                                     </li>
 

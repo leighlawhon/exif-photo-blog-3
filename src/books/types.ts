@@ -13,7 +13,6 @@ export interface Book {
 }
 
 export interface ChapterWrapper {
-  scenes: any;
   chapter: Chapter;
 }
 
@@ -34,29 +33,35 @@ export interface Panel {
   word_count: string;
   environment: string;
   action: string;
-  characters: string[];
+  characters: Character[];
 }
 
-export interface BookMeta {
-  _id: string;
-  titleTag: string;
-  chapters: ChapterWrapperMeta[];
-}
-export interface ChapterWrapperMeta {
-  chapter: ChapterMeta;
-}
+// export interface BookMeta {
+//   _id: string;
+//   titleTag: string;
+//   chapters: ChapterWrapperMeta[];
+// }
+// export interface ChapterWrapperMeta {
+//   chapter: ChapterMeta;
+// }
 
-export interface ChapterMeta {
-  scenes: SceneMeta[];
-}
+// export interface ChapterMeta {
+//   scenes: SceneMeta[];
+// }
 
-export interface SceneMeta {
-  panels: PanelMeta[];
-}
+// export interface SceneMeta {
+//   panels: PanelMeta[];
+// }
 
-export interface PanelMeta {
-  environment: string;
-  action: string;
-  characters: string[];
+// export interface PanelMeta {
+//   environment: string;
+//   action: string;
+//   characters: CharacterMeta[];
+// }
+
+export interface Character {
+  name: string;
+  css: string;
+  description: string;
 }
 
