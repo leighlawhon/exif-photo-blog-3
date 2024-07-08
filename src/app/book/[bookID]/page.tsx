@@ -9,7 +9,7 @@ import { cache } from 'react';
 import BookContainer from '@/components/book/BookContainer';
 
 import { getBook } from '@/books/actions';
-import { BookMeta } from '@/books/types';
+
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
@@ -27,35 +27,7 @@ function getBookIdFromUrl(): string {
     return urlParams.get('bookID') || '';
 }
 
-async function getBookMetaData(): Promise<BookMeta | null> {
-    const bookId = getBookIdFromUrl();
-    if (!bookId) {
-        return null;
-    }
-    const book = await getBook(bookId).catch(() => null);
-    if (!book) {
-        return null;
-    } else {
-        let bookChapters: any = [];
 
-        book.chapters.forEach((chapter, i) => {
-            bookChapters.push({ chapterIndex: i })
-            chapter.chapter.scenes.forEach((scene, j) => {
-                bookChapters.chapters[i].scenes.push({ sceneIndex: j })
-                scene.panels.forEach((panel, k) => {
-                    bookChapters.chapters[i].scenes[j].panels.push({ panelIndex: k, characters: panel.characters, action: panel.action, environment: panel.environment })
-                });
-            }
-            );
-        });
-
-        return {
-            _id: bookId,
-            titleTag: book.title,
-            chapters: bookChapters
-        };
-    }
-}
 
 export async function generateMetadata(): Promise<Metadata> {
     const photos = await getPhotosCached()
@@ -67,11 +39,9 @@ const cacheKey = "page-" + PATH_BOOK_DYNAMIC;
 
 export default async function BookPage() {
     const [
-        photos,
-        bookMetadata
+        photos
     ] = await Promise.all([
-        getPhotosCached(),
-        getBookMetaData()
+        getPhotosCached()
             .catch(() => []),
     ]);
 
