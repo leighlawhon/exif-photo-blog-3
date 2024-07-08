@@ -1,15 +1,13 @@
 import React, { useState, useCallback } from 'react';
 
-const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag: string, editMode: boolean, rootPosition: { top: number; left: number; } }> = ({
+const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag: string, editMode: boolean }> = ({
     children,
     imageID,
     sceneTag,
-    rootPosition,
     editMode
 }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [panelPosition, setPanelPosition] = useState({ x: 0, y: 0 });
-    const [DraggableContainer, setDraggableContainer] = useState<HTMLDivElement | null>(null);
     const [dragoffset, setDragOffset] = useState<string>();
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -19,17 +17,19 @@ const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag
 
     const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        setIsDragging(true);
-        setPanelPosition({
-            x: event.clientX,
-            y: event.clientY,
-        });
-        setDraggableContainer(event.currentTarget as HTMLDivElement);
+        if (editMode) {
+            setIsDragging(true);
+            setPanelPosition({
+                x: event.clientX,
+                y: event.clientY,
+            });
+        }
+
     }, []);
 
     const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        if (isDragging) {
+        if (isDragging && editMode) {
             const newX = event.clientX - panelPosition.x;
             const newY = event.clientY - panelPosition.y;
             const draggableContainer = event.currentTarget;
@@ -37,12 +37,14 @@ const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag
             draggableContainer.style.left = `${newX}px`;
             draggableContainer.style.top = `${newY}px`;
         }
-    }, [isDragging, rootPosition]);
+    }, [isDragging]);
 
     const handleMouseUp = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        setIsDragging(false);
-        setDragOffset(`left: ${event.currentTarget.offsetLeft}; top: ${event.currentTarget.offsetTop}`);
+        if (editMode) {
+            setIsDragging(false);
+            setDragOffset(`left: ${event.currentTarget.offsetLeft}; top: ${event.currentTarget.offsetTop}`);
+        }
         console.log("offset", dragoffset);
     }, []);
 

@@ -4,32 +4,30 @@ import { Photo, altTextForPhoto, doesPhotoNeedBlurCompatibility } from '@/photo'
 import { useRef } from 'react';
 import useOnVisible from '@/utility/useOnVisible';
 import Draggable from './Drag';
+import slugify from './utility';
 
 export default function Panel({
     photo,
     photoTitle,
-    onVisible,
     sceneTag,
     index,
-    rootPosition,
-    editMode
+    editMode,
 }: {
-    photoTitle: string
-    photo: Photo
-    editMode: boolean
-    tag?: string
-    selected?: boolean
-    prefetch?: boolean
-    className?: string
-    onVisible?: () => void
-    sceneTag: string,
-    index: number,
-    rootPosition: { top: number; left: number; }
+        photoTitle: string;
+        photo: Photo;
+        editMode: boolean;
+        tag?: string;
+        selected?: boolean;
+        prefetch?: boolean;
+        className?: string;
+        onVisible?: () => void;
+        sceneTag: string;
+        index: number;
 }) {
 
     return (
-        <Draggable editMode={editMode} sceneTag={sceneTag} imageID={`image-${index}`} rootPosition={rootPosition}>
-            <div className={`panel ${sceneTag} image-${index} `}>
+        <Draggable editMode={editMode} sceneTag={sceneTag} imageID={`image-${index}`} >
+            <div >
                 <img
                     src={photo.url}
                     key={photoTitle}

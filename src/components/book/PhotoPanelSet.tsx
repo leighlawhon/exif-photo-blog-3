@@ -1,25 +1,23 @@
 import { Photo } from "@/photo";
 import Panel from "./Panel";
 import { useEffect, useRef } from "react";
+import slugify from "./utility";
 type PanelProps = {
     editMode: boolean;
     photo: Photo;
-    sceneTag: string
-    index: number
-    rootPosition: { top: number; left: number; }
+    sceneTag: string;
+    index: number;
 };
 
-
-export default function PhotoPanel({
+export default function PhotoPanelSet({
     editMode,
     photo,
     sceneTag,
     index,
-    rootPosition
 }: PanelProps) {
-    // Render logic for individual photo panels
 
     return (
+        <div className={`panel ${sceneTag} ${photo.tags.join(" ")} image-${index}`} key={"panel-" + index}>
         <Panel
             editMode={editMode}
             photo={photo}
@@ -27,9 +25,9 @@ export default function PhotoPanel({
             className="flex w-full h-full"
             key={"something" + photo.id}
             sceneTag={sceneTag}
-            index={index}
-            rootPosition={rootPosition}
+                index={index}
         />
+        </div>
     );
 
 }

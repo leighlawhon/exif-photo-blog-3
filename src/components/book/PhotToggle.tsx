@@ -9,11 +9,10 @@ import TogglePhotoEditor from './TogglePhotoEditor';
 interface TogglePhotoEditorProps {
     characters: string[];
     handleUpdate: (tag: string) => void;
-    sceneUpdate: boolean;
     photos: Photo[];
 }
 
-const PhotoToggle = ({ characters, handleUpdate, sceneUpdate, photos }: TogglePhotoEditorProps) => {
+const PhotoToggle = ({ characters, handleUpdate, photos }: TogglePhotoEditorProps) => {
     const [selectedCharacter, setSelectedCharacter] = useState<string>('All');
 
     const activateAllButton = () => {

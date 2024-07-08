@@ -9,21 +9,17 @@ export default function PanelLayout({
     book,
     currentScene,
     currentChapter,
-    sceneUpdate,
     setSceneUpdate
 }: {
     editMode: boolean;
     photos: Photo[];
     book?: Book;
     currentScene: number;
-    currentChapter: number;
-    sceneUpdate: boolean;
+        currentChapter: number;
     setSceneUpdate: (update: boolean) => void;
 }) {
     const [panelTagPhotos, setPanelTagPhotos] = useState<Photo[]>(photos);
     const [sceneTag, setSceneTag] = useState<string>('');
-
-
 
     const handlePanelPhotosFilter = (newTag: string) => {
         const scenePhotos = photos.filter(photo => photo.tags.includes(newTag));
@@ -31,10 +27,12 @@ export default function PanelLayout({
         setPanelTagPhotos(scenePhotos);
     };
 
+
     return (
         <div>
             <div className="panel-container">
                 {book?.chapters[currentChapter].chapter.scenes[currentScene].panels.map((panel, i) => {
+
                     return (
                         <ScenePanel
                             photos={photos}
@@ -44,8 +42,6 @@ export default function PanelLayout({
                             editMode={editMode}
                             key={"scene-panel-" + i}
                             index={i}
-                            sceneUpdate
-                            setSceneUpdate={setSceneUpdate}
                             handlePanelPhotosFilter={handlePanelPhotosFilter}
                         />
                     );
