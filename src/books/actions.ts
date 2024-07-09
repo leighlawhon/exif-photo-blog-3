@@ -111,7 +111,7 @@ export async function updateBook(bookData: FormData) {
     throw new Error('Failed to update book.');
   }
 
-  return { _id: id };
+  return bookWithId as Book;
 }
 
 export async function deleteBook(id: Book['_id']) {

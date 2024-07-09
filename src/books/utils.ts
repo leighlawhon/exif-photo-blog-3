@@ -24,3 +24,18 @@ export function isJsonFile<T>(file: T | File): file is File {
   return file instanceof File && file.type === 'application/json' &&
     file.name.endsWith('.json');
 }
+
+/**
+ * Check if a string is a valid JSON.
+ *
+ * @param jsonString The string to check.
+ * @returns A boolean indicating whether the string is a valid JSON.
+ */
+export function isValidJson(jsonString: string): boolean {
+  try {
+    JSON.parse(jsonString);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

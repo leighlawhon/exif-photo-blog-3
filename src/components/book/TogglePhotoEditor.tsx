@@ -9,22 +9,28 @@ interface TogglePhotoEditorProps {
     character: string;
     handleUpdate: (setChar: string) => void;
     photos: Photo[];
-    index: number
+    index: number;
+    selectedCharacter: string;
+    setSelectedCharacter: (setChar: string) => void;
 }
 
-const TogglePhotoEditor = ({ character, handleUpdate, photos, index }: TogglePhotoEditorProps) => {
-    const [selectedCharacter, setSelectedCharacter] = useState<string>('All');
+const TogglePhotoEditor = ({ character, setSelectedCharacter, selectedCharacter, handleUpdate, photos, index }: TogglePhotoEditorProps) => {
+
     const [isOpen, setIsOpen] = useState(false);
 
     const activateCharacterButton = (character: string) => {
         handleUpdate(character);
         setSelectedCharacter(character);
+        console.log(selectedCharacter, "selectedCharacter");
     }
 
     const setsOpen = () => {
         console.log(isOpen)
         setIsOpen(!isOpen)
     }
+    useEffect(() => {
+        // handleUpdate(selectedCharacter);
+    });
 
     return (
         <div key={"character-" + index}>

@@ -34,7 +34,7 @@ const PhotoToggle = ({ panelCharacters, handleUpdate, photos }: TogglePhotoEdito
             {panelCharacters.map((character, i) => {
 
                 return (
-                    <TogglePhotoEditor key={`photoeditor- ${i}`} index={i} photos={photos} handleUpdate={handleUpdate} character={character.name} />
+                    <TogglePhotoEditor selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} key={`photoeditor- ${i}`} index={i} photos={photos} handleUpdate={handleUpdate} character={character.name} />
                 )
             })}
         </div>

@@ -2,7 +2,7 @@
 
 import SiteGrid from '@/components/SiteGrid';
 import { Photo } from '../../photo';
-import PanelLayout from './PanelLayout';
+import PanelContainer from './PanelContainer';
 import { Book } from '@/books/types';
 
 export default function SceneContainer({
@@ -39,7 +39,7 @@ export default function SceneContainer({
             contentMain={<div className="scene-container" >
                 <div id="">
                     <div className="" >
-                        <PanelLayout {...{
+                        <PanelContainer {...{
                             photos,
                             book,
                             tags,

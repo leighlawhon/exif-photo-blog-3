@@ -1,18 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import { Character, Panel } from '@/books/types';
+import React, { useState, useCallback, useEffect } from 'react';
 
-const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag: string, editMode: boolean, photoTags: string[], setDragOffset: (offset: string) => void }> = ({
+const Draggable: React.FC<{ currentCharacters: Character[], children: React.ReactNode, editMode: boolean, photoTags: string[], sceneTag: string, setBookCharactersCSS: (css: { character: string, fromleft: string, fromtop: string }) => void }> = ({
     children,
-    imageID,
     photoTags,
+    currentCharacters,
+    editMode,
     sceneTag,
-    setDragOffset,
-    editMode
+    setBookCharactersCSS
 }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [panelPosition, setPanelPosition] = useState({ x: 0, y: 0 });
+    const [cssTop, setCSSTop] = useState<string>();
+    const [cssLeft, setCSSLeft] = useState<string>();
+    const [currentChar, setCurrentChar] = useState<string>('');
+
+
+
+
     const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        console.log("start", event.currentTarget.offsetLeft);
+
     };
 
     const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -41,19 +49,43 @@ const Draggable: React.FC<{ children: React.ReactNode, imageID: string, sceneTag
 
     const handleMouseUp = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
+
+
         if (editMode) {
             setIsDragging(false);
-            setDragOffset(`{left: ${event.currentTarget.offsetLeft}px; top: ${event.currentTarget.offsetTop}}px`);
+            setBookCharactersCSS({ character: currentChar, fromleft: `${event.currentTarget.offsetLeft}px`, fromtop: `${event.currentTarget.offsetTop}px` });
         }
     }, []);
 
+
+    useEffect(() => {
+        currentCharacters.forEach((character) => {
+            if (photoTags.includes(character.name) && photoTags.includes(sceneTag)) {
+                setCurrentChar(character.name);
+                if (character.css !== "") {
+                    const parsedCSS = JSON.parse(character.css);
+                    console.log("character_________PARSE", parsedCSS);
+                    setCSSTop(parsedCSS.fromtop);
+                    setCSSLeft(parsedCSS.fromleft); // Pass the new value of cssLeft here
+                }
+            }
+        });
+        console.log("panelClasses", cssLeft, cssTop, "panelClasses")
+    }, [currentCharacters, photoTags, sceneTag, cssLeft, cssTop, setCSSTop, setCSSLeft, setCurrentChar]);
+
+    console.log(cssLeft, cssTop, "cssLeft, cssTop")
     return (
         <div
             onMouseDown={handleMouseDown}
             onMouseMove={isDragging ? handleMouseMove : undefined}
             onMouseUp={handleMouseUp}
             onClick={handleClick}
-            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+            style={{
+                "left": cssLeft,
+                "background": "red",
+                "cursor": isDragging ? 'grabbing' : 'grab',
+                "top": cssTop
+            }}
             className='draggable_container'
         >
             {editMode && 
